@@ -38,8 +38,8 @@ export function RepairSection() {
             Servis Perangkat
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-navigation-foreground/70">
-            Selain menyediakan perangkat, Sinar Asih melayani servis komputer, HP, dan printer.
-            Ceritakan kendala perangkat Anda atau kunjungi toko untuk berkonsultasi.
+            Selain menyediakan gadget, Sinar Asih melayani servis komputer, HP, dan printer.
+            Konsultasikan kendala perangkat Anda atau kunjungi toko untuk berkonsultasi.
           </p>
           <Link
             href="https://wa.me/6281324063363?text=Halo%20Sinar%20Asih%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20servis."

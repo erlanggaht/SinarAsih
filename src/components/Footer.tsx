@@ -17,7 +17,7 @@ const groups = [
   },
   {
     title: "Sinar Asih",
-    links: ["Tentang Kami", "Galeri Perusahaan", "Alamat Toko", "Hubungi Kami"],
+    links: ["Tentang Kami", "Tim Kami", "Galeri Perusahaan", "Alamat Toko", "Hubungi Kami"],
   },
 ];
 
@@ -59,7 +59,7 @@ export function Footer() {
                 {links.map((label) => (
                   <li key={label}>
                     <Link
-                      href="#"
+                      href={label === "Tim Kami" ? "/team" : "#"}
                       className={`text-sm text-navigation-foreground/65 transition-colors hover:text-navigation-foreground ${focus}`}
                     >
                       {label}
@@ -80,15 +80,6 @@ export function Footer() {
             </Link>
             <div aria-hidden="true" className="my-5 h-px w-10 bg-navigation-foreground/30" />
             <p className="text-sm font-medium">Sinar Asih Sumedang</p>
-            <p className="mt-2 text-sm text-navigation-foreground/65">
-              Mitra perangkat gadget Anda.
-            </p>
-            <Link
-              href="#"
-              className={`mt-4 text-sm transition-colors hover:text-navigation-foreground/70 ${focus}`}
-            >
-              Hubungi toko kami
-            </Link>
           </div>
         </div>
 

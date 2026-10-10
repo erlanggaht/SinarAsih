@@ -64,7 +64,7 @@ export function CategorySection({ query = "" }: { query?: string }) {
                 rel="noopener noreferrer"
                 className="mt-auto inline-flex items-center justify-center gap-2 bg-primary px-3 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
               >
-                Lihat
+                Lihat Produk
                 <span className="sr-only">tentang {title} melalui WhatsApp (buka tab baru)</span>
               </Link>
             </div>

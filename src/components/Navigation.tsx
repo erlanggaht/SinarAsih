@@ -5,7 +5,10 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 
-const links = [{ label: "Beranda", href: "/" }];
+const links = [
+  { label: "Beranda", href: "/" },
+  { label: "Tim Kami", href: "/team" },
+];
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
