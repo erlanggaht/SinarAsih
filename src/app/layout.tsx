@@ -1,0 +1,31 @@
+import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
+import type { ReactNode } from "react";
+import { ThemeProvider } from "@/components/theme-provider";
+import AppContainer from "@/components/AppContainer";
+import "./globals.css";
+
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+  display: "swap",
+  fallback: ["Arial", "sans-serif"],
+});
+
+export const metadata: Metadata = {
+  title: "Sinar Asih Sumedang",
+  description:
+    "Sinar Asih adalah perusahaan yang bergerak di bidang distribusi dan penjualan produk-produk berkualitas tinggi yang berlokasi di Sumedang, Jawa Barat. ",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="id" suppressHydrationWarning>
+      <body className={`${roboto.variable} bg-background font-sans text-foreground antialiased`}>
+        <ThemeProvider>
+          <AppContainer>{children}</AppContainer>
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}

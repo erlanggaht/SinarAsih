@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --background: #f1f1f1;
+  --foreground: #373737;
+  --card: #ffffff;
+  --card-foreground: #373737;
+  --primary: #068da9;
+  --primary-foreground: #ffffff;
+  --secondary: #e4e4e7;
+  --secondary-foreground: #27272a;
+  --muted: #f4f4f5;
+  --muted-foreground: #52525b;
+  --accent: #e0f2f7;
+  --accent-foreground: #146c94;
+  --success: #166534;
+  --success-foreground: #ffffff;
+  --warning: #854d0e;
+  --warning-foreground: #ffffff;
+  --error: #b91c1c;
+  --error-foreground: #ffffff;
+  --info: #1d4ed8;
+  --info-foreground: #ffffff;
+  --border: #d4d4d8;
+  --input: #71717a;
+  --ring: #146c94;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #18181b;
+  --card-foreground: #fafafa;
+  --primary: #67d2e8;
+  --primary-foreground: #082f3b;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #164e63;
+  --accent-foreground: #cffafe;
+  --success: #86efac;
+  --success-foreground: #052e16;
+  --warning: #fde047;
+  --warning-foreground: #422006;
+  --error: #fca5a5;
+  --error-foreground: #450a0a;
+  --info: #93c5fd;
+  --info-foreground: #172554;
+  --border: #3f3f46;
+  --input: #71717a;
+  --ring: #67d2e8;
+}
+
+@theme inline {
+  --font-sans: var(--font-roboto), Arial, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@theme {
+  --color-navigation: #373737;
+  --color-navigation-foreground: #efefef;
+  --color-navigation-muted: #777777;
+  --color-navigation-hover: #262626;
+  --color-navigation-action: #068da9;
+  --color-navigation-action-foreground: #ffffff;
+  --color-brand-accent: #146c94;
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+}
