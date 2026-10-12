@@ -2,7 +2,8 @@
 
 import { ErlForm } from "erlangform";
 import type { ComponentProps, ReactNode } from "react";
-import { TextField } from "./custom-fields";
+import { CheckboxField, TextField } from "./custom-fields";
+import { NumberField } from "./number-field";
 
 type SchemaFormProps<TValues> = ComponentProps<typeof ErlForm<TValues>> & {
   children?: ReactNode;
@@ -38,7 +39,12 @@ export function ErlangForm<TValues = Record<string, unknown>>({
         <ErlForm<TValues>
           {...props}
           form={form}
-          fieldComponent={{ string: TextField, ...fieldComponent }}
+          fieldComponent={{
+            string: TextField,
+            boolean: CheckboxField,
+            number: NumberField,
+            ...fieldComponent,
+          }}
         />
         {children}
       </fieldset>

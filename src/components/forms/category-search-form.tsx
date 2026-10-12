@@ -18,7 +18,13 @@ const SearchField = createStringField({
   ),
 });
 
-export function CategorySearchForm({ onQueryChange }: { onQueryChange: (query: string) => void }) {
+export function CategorySearchForm({
+  onQueryChange,
+  placeholder = "Cari kategori: laptop, smartphone, printer…",
+}: {
+  onQueryChange: (query: string) => void;
+  placeholder?: string;
+}) {
   const form = useForm({
     defaultValues: { query: "" },
     listeners: {
@@ -36,7 +42,7 @@ export function CategorySearchForm({ onQueryChange }: { onQueryChange: (query: s
         query: {
           label: "Cari kategori perangkat",
           labelClassName: "sr-only",
-          placeholder: "Cari kategori: laptop, smartphone, printer…",
+          placeholder,
           component: SearchField,
         },
       }}

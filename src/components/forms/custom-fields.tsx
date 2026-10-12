@@ -107,3 +107,43 @@ export const PasswordField = createStringField({
   required: true,
 });
 export const SelectField = createStringField();
+
+export function CheckboxField<TValues>({ field, config }: FieldComponentProps<boolean, TValues>) {
+  const id = useId();
+  const errors = field.state.meta.errors;
+  const values = field.form.state.values as TValues;
+
+  return (
+    <div>
+      <label htmlFor={id} className="sinar-checkbox-label">
+        <input
+          id={id}
+          name={field.name}
+          type="checkbox"
+          checked={field.state.value}
+          onChange={(event) => field.handleChange(event.target.checked)}
+          onBlur={() => field.handleBlur()}
+          disabled={config?.disableIf?.(values)}
+          aria-invalid={errors.length > 0}
+          aria-describedby={
+            [config?.description && `${id}-hint`, errors.length > 0 && `${id}-error`]
+              .filter(Boolean)
+              .join(" ") || undefined
+          }
+          className="sinar-form-checkbox"
+        />
+        <span>{config?.label}</span>
+      </label>
+      {config?.description && (
+        <p id={`${id}-hint`} className="sinar-form-hint">
+          {config.description}
+        </p>
+      )}
+      {errors.length > 0 && (
+        <p id={`${id}-error`} role="alert" className="sinar-form-error">
+          {errorMessage(errors[0])}
+        </p>
+      )}
+    </div>
+  );
+}

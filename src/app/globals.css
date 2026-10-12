@@ -111,7 +111,26 @@
   display: none;
 }
 
-.sinar-form .erlform-field > div > :is(label, p, .erlform-error) {
+.sinar-form .erlform-checkbox-field {
+  display: block;
+}
+
+.sinar-form .erlform-field .sinar-checkbox-label {
+  @apply flex min-h-11 cursor-pointer items-center gap-3 text-sm font-medium text-foreground;
+  margin: 0;
+}
+
+.sinar-form .erlform-field .sinar-form-checkbox {
+  @apply size-4 shrink-0 accent-primary;
+  border-radius: 0;
+}
+
+.sinar-form .erlform-field .sinar-form-checkbox:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.sinar-form .erlform-field > div > :is(label, p, small, .erlform-error) {
   display: none;
 }
 
