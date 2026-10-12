@@ -28,6 +28,7 @@ export const ANCHORS = {
   top: "#",
   mainContent: "#main-content",
   categories: "#categories",
+  products: "#products",
 } as const;
 
 export const EXTERNAL_LINKS = {

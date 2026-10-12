@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { LogoutForm } from "@/components/forms/logout-form";
 import { PanelMenu } from "@/components/PanelMenu";
 import { ROUTES } from "@/lib/config";
+import { getServerSession } from "@/lib/auth/get-server-session";
 
 export const metadata: Metadata = {
   title: "Admin | Sinar Asih",
@@ -12,8 +13,8 @@ export const metadata: Metadata = {
 export default async function AdminPage() {
   const supabase = await createClient();
 
-  const { data: claimsData } = await supabase.auth.getClaims();
-  const userId = claimsData?.claims?.sub;
+  const session = await getServerSession();
+  const userId = session?.user.id;
 
   if (!userId) {
     redirect(ROUTES.panel.login);

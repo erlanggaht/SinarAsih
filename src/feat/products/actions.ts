@@ -79,3 +79,39 @@ export async function saveProductAction(input: unknown, identity?: unknown): Pro
     return { success: false, error: "Tidak dapat menghubungi server. Silakan coba lagi." };
   }
 }
+
+export async function deleteProductAction(
+  input: unknown,
+): Promise<{ success: true; deletedId: number } | { success: false; error: string }> {
+  const parsed = identitySchema.extend({ confirmed: z.literal(true) }).safeParse(input);
+  if (!parsed.success)
+    return { success: false, error: "Konfirmasi atau identitas produk tidak valid." };
+  try {
+    const { supabase, profile } = await getAdminContext();
+    if (profile?.role !== "owner")
+      return { success: false, error: "Hanya pemilik aktif yang dapat menghapus produk." };
+    const { data, error } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", parsed.data.id)
+      .eq("updated_at", parsed.data.updated_at)
+      .select("id")
+      .single();
+    if (error || !data)
+      return {
+        success: false,
+        error:
+          error?.code === "23503"
+            ? "Produk masih digunakan data lain. Nonaktifkan produk jika belum dapat dihapus."
+            : "Produk telah berubah atau gagal dihapus. Muat ulang halaman dan coba lagi.",
+      };
+    revalidatePath(ROUTES.panel.products);
+    revalidatePath(ROUTES.panel.categories);
+    return { success: true, deletedId: data.id };
+  } catch {
+    return {
+      success: false,
+      error: "Tidak dapat menghubungi server. Periksa data sebelum mencoba lagi.",
+    };
+  }
+}

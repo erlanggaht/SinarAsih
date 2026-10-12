@@ -1,14 +1,21 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ArrowLeft, Pencil, Plus } from "lucide-react";
+import { ArrowLeft, Pencil, Plus, Trash2 } from "lucide-react";
 import type { Category } from "@/feat/categories/schema";
 import { CategorySearchForm } from "@/components/forms/category-search-form";
 import { CategoryForm } from "./category-form";
+import { DeleteCategoryDialog } from "./delete-category-dialog";
 
 type StatusFilter = "all" | "active" | "inactive";
 
-export function CategoryManager({ initialCategories }: { initialCategories: Category[] }) {
+export function CategoryManager({
+  initialCategories,
+  canDelete = false,
+}: {
+  initialCategories: Category[];
+  canDelete?: boolean;
+}) {
   const [categories, setCategories] = useState(initialCategories);
   const [selected, setSelected] = useState<Category | null>(null);
   const [editing, setEditing] = useState(false);
@@ -16,6 +23,7 @@ export function CategoryManager({ initialCategories }: { initialCategories: Cate
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState<StatusFilter>("all");
   const [notice, setNotice] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<Category | null>(null);
   const editor = useRef<HTMLDivElement>(null);
   const listHeading = useRef<HTMLHeadingElement>(null);
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
@@ -114,7 +122,7 @@ export function CategoryManager({ initialCategories }: { initialCategories: Cate
           <>
             <div
               aria-hidden="true"
-              className="hidden grid-cols-[minmax(0,1fr)_7rem_6rem] gap-5 border-b border-border bg-muted/50 px-6 py-3 text-xs font-semibold text-muted-foreground md:grid"
+              className="hidden grid-cols-[minmax(0,1fr)_7rem_13rem] gap-5 border-b border-border bg-muted/50 px-6 py-3 text-xs font-semibold text-muted-foreground md:grid"
             >
               <span>Kategori</span>
               <span>Status</span>
@@ -124,7 +132,7 @@ export function CategoryManager({ initialCategories }: { initialCategories: Cate
               {filtered.map((category) => (
                 <li
                   key={category.id}
-                  className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-3 p-5 md:grid-cols-[minmax(0,1fr)_7rem_6rem] md:items-center md:gap-5 md:px-6"
+                  className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-3 p-5 md:grid-cols-[minmax(0,1fr)_7rem_13rem] md:items-center md:gap-5 md:px-6"
                 >
                   <div className="min-w-0">
                     <h3 className="font-semibold wrap-anywhere">{category.name}</h3>
@@ -143,14 +151,30 @@ export function CategoryManager({ initialCategories }: { initialCategories: Cate
                       {category.is_active ? "Aktif" : "Nonaktif"}
                     </span>
                   </div>
-                  <button
-                    type="button"
-                    aria-label={`Edit kategori ${category.name}`}
-                    onClick={(event) => openEditor(category, event.currentTarget)}
-                    className="col-span-2 inline-flex min-h-11 items-center justify-center gap-2 justify-self-start border border-border px-4 py-2 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring md:col-span-1 md:justify-self-end"
-                  >
-                    <Pencil className="size-4" aria-hidden="true" /> Edit
-                  </button>
+                  <div className="col-span-2 flex flex-wrap gap-2 justify-self-start md:col-span-1 md:justify-self-end">
+                    <button
+                      type="button"
+                      aria-label={`Edit kategori ${category.name}`}
+                      onClick={(event) => openEditor(category, event.currentTarget)}
+                      className="inline-flex min-h-11 items-center justify-center gap-2 border border-border px-4 py-2 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                    >
+                      <Pencil className="size-4" aria-hidden="true" /> Edit
+                    </button>
+                    {canDelete && (
+                      <button
+                        type="button"
+                        aria-label={`Hapus kategori ${category.name}`}
+                        onClick={(event) => {
+                          lastTrigger.current = event.currentTarget;
+                          setNotice(null);
+                          setDeleting(category);
+                        }}
+                        className="inline-flex min-h-11 items-center justify-center gap-2 border border-error/40 px-3 py-2 text-sm font-medium text-error hover:bg-error/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                      >
+                        <Trash2 className="size-4" aria-hidden="true" /> Hapus
+                      </button>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
@@ -168,6 +192,23 @@ export function CategoryManager({ initialCategories }: { initialCategories: Cate
           </div>
         )}
       </section>
+      {deleting && (
+        <DeleteCategoryDialog
+          category={deleting}
+          onClose={() => {
+            setDeleting(null);
+            requestAnimationFrame(() => lastTrigger.current?.focus());
+          }}
+          onDeleted={(id, movedCount) => {
+            setCategories((current) => current.filter((category) => category.id !== id));
+            setNotice(
+              `Kategori "${deleting.name}" berhasil dihapus.${movedCount > 0 ? ` ${movedCount} produk dipindahkan ke kategori tujuan.` : ""}`,
+            );
+            setDeleting(null);
+            requestAnimationFrame(() => listHeading.current?.focus());
+          }}
+        />
+      )}
       {editing && (
         <div ref={editor} className="mx-auto max-w-2xl">
           <button

@@ -32,7 +32,10 @@ export default async function CategoriesPage() {
           Atur kategori agar produk toko mudah dikelompokkan.
         </p>
       </header>
-      <CategoryManager initialCategories={(data ?? []) as Category[]} />
+      <CategoryManager
+        initialCategories={(data ?? []) as Category[]}
+        canDelete={profile.role === "owner"}
+      />
     </section>
   );
 }

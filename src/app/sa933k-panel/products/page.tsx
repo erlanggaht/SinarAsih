@@ -32,6 +32,7 @@ export default async function ProductsPage() {
         </p>
       </header>
       <ProductManager
+        canDelete={profile.role === "owner"}
         initialProducts={(products.data ?? []) as unknown as Product[]}
         categories={(categories.data ?? []) as ProductCategory[]}
       />

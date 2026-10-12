@@ -2,20 +2,23 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Pencil, Plus } from "lucide-react";
+import { ArrowLeft, Pencil, Plus, Trash2 } from "lucide-react";
 import { ROUTES } from "@/lib/config";
 import { formatProductPrice, type Product, type ProductCategory } from "@/feat/products/schema";
 import { ProductForm } from "./product-form";
 import { ProductFilterForm, type ProductFilters } from "./product-filters";
+import { DeleteProductDialog } from "./delete-product-dialog";
 
 type Status = "all" | "active" | "inactive" | "low";
 
 export function ProductManager({
   initialProducts,
   categories,
+  canDelete = false,
 }: {
   initialProducts: Product[];
   categories: ProductCategory[];
+  canDelete?: boolean;
 }) {
   const [products, setProducts] = useState(initialProducts);
   const [selected, setSelected] = useState<Product | null>(null);
@@ -24,6 +27,7 @@ export function ProductManager({
   const [filters, setFilters] = useState<ProductFilters>({ query: "", category: "" });
   const [status, setStatus] = useState<Status>("all");
   const [notice, setNotice] = useState<string | null>(null);
+  const [deleting, setDeleting] = useState<Product | null>(null);
   const editor = useRef<HTMLDivElement>(null);
   const listHeading = useRef<HTMLHeadingElement>(null);
   const lastTrigger = useRef<HTMLButtonElement | null>(null);
@@ -141,7 +145,7 @@ export function ProductManager({
           <>
             <div
               aria-hidden="true"
-              className="hidden grid-cols-[minmax(0,1fr)_9rem_7rem_6rem] gap-5 border-b border-border bg-muted/50 px-6 py-3 text-xs font-semibold text-muted-foreground lg:grid"
+              className="hidden grid-cols-[minmax(0,1fr)_9rem_7rem_13rem] gap-5 border-b border-border bg-muted/50 px-6 py-3 text-xs font-semibold text-muted-foreground lg:grid"
             >
               <span>Produk</span>
               <span>Harga</span>
@@ -154,7 +158,7 @@ export function ProductManager({
                 return (
                   <li
                     key={product.id}
-                    className="grid grid-cols-2 items-start gap-4 p-5 lg:grid-cols-[minmax(0,1fr)_9rem_7rem_6rem] lg:items-center lg:gap-5 lg:px-6"
+                    className="grid grid-cols-2 items-start gap-4 p-5 lg:grid-cols-[minmax(0,1fr)_9rem_7rem_13rem] lg:items-center lg:gap-5 lg:px-6"
                   >
                     <div className="col-span-2 min-w-0 lg:col-span-1">
                       <h3 className="font-semibold wrap-anywhere">{product.name}</h3>
@@ -199,14 +203,30 @@ export function ProductManager({
                             : "Stok cukup"}
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      aria-label={`Edit produk ${product.name}`}
-                      onClick={(event) => openEditor(product, event.currentTarget)}
-                      className="col-span-2 inline-flex min-h-11 items-center justify-center gap-2 justify-self-start border border-border px-4 py-2 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring lg:col-span-1 lg:justify-self-end"
-                    >
-                      <Pencil className="size-4" aria-hidden="true" /> Edit
-                    </button>
+                    <div className="col-span-2 flex flex-wrap gap-2 justify-self-start lg:col-span-1 lg:justify-self-end">
+                      <button
+                        type="button"
+                        aria-label={`Edit produk ${product.name}`}
+                        onClick={(event) => openEditor(product, event.currentTarget)}
+                        className="inline-flex min-h-11 items-center justify-center gap-2 border border-border px-4 py-2 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                      >
+                        <Pencil className="size-4" aria-hidden="true" /> Edit
+                      </button>
+                      {canDelete && (
+                        <button
+                          type="button"
+                          aria-label={`Hapus produk ${product.name}`}
+                          onClick={(event) => {
+                            lastTrigger.current = event.currentTarget;
+                            setNotice(null);
+                            setDeleting(product);
+                          }}
+                          className="inline-flex min-h-11 items-center justify-center gap-2 border border-error/40 px-3 py-2 text-sm font-medium text-error hover:bg-error/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        >
+                          <Trash2 className="size-4" aria-hidden="true" /> Hapus
+                        </button>
+                      )}
+                    </div>
                   </li>
                 );
               })}
@@ -225,6 +245,21 @@ export function ProductManager({
           </div>
         )}
       </section>
+      {deleting && (
+        <DeleteProductDialog
+          product={deleting}
+          onClose={() => {
+            setDeleting(null);
+            requestAnimationFrame(() => lastTrigger.current?.focus());
+          }}
+          onDeleted={(id) => {
+            setProducts((current) => current.filter((product) => product.id !== id));
+            setNotice(`Produk "${deleting.name}" berhasil dihapus.`);
+            setDeleting(null);
+            requestAnimationFrame(() => listHeading.current?.focus());
+          }}
+        />
+      )}
       {editing && (
         <div ref={editor} className="mx-auto max-w-4xl">
           <button

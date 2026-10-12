@@ -5,6 +5,7 @@ import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { ROUTES } from "@/lib/config";
+import { useSession } from "@/hooks/use-session";
 
 const links = [
   { label: "Beranda", href: ROUTES.home },
@@ -12,6 +13,7 @@ const links = [
 ];
 
 export function Navigation() {
+  const { isAuthenticated } = useSession();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -67,6 +69,21 @@ export function Navigation() {
                 {label}
               </Link>
             ))}
+            {isAuthenticated && (
+              <Link
+                href={ROUTES.panel.dashboard}
+                aria-current={
+                  pathname === ROUTES.panel.dashboard ||
+                  pathname.startsWith(`${ROUTES.panel.dashboard}/`)
+                    ? "page"
+                    : undefined
+                }
+                onClick={() => setOpen(false)}
+                className="px-4 py-3 text-lg transition-colors hover:bg-navigation-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navigation-foreground aria-[current=page]:bg-navigation-hover"
+              >
+                Admin
+              </Link>
+            )}
             <Link
               href={ROUTES.gallery}
               aria-current={pathname === ROUTES.gallery ? "page" : undefined}
