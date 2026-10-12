@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getWhatsAppUrl } from "@/lib/config";
 
 const categories = [
   { title: "Smart Wearable", category: "Smart wearable", image: "miband.png" },
@@ -59,7 +60,9 @@ export function CategorySection({ query = "" }: { query?: string }) {
                 Temukan pilihan perangkat dalam kategori ini.
               </p>
               <Link
-                href={`https://wa.me/6281324063363?text=${encodeURIComponent(`Halo Sinar Asih, boleh minta informasi harga dan stok ${title}?`)}`}
+                href={getWhatsAppUrl(
+                  `Halo Sinar Asih, boleh minta informasi harga dan stok ${title}?`,
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-auto inline-flex items-center justify-center gap-2 bg-primary px-3 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"

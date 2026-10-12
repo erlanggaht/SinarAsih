@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { InstagramIcon, WhatsAppIcon } from "@/components/icons/SocialIcons";
+import { ANCHORS, ROUTES } from "@/lib/config";
 
 const groups = [
   {
@@ -42,7 +43,7 @@ export function Footer() {
               </p>
             </div>
             <Link
-              href="#"
+              href={ANCHORS.top}
               className={`inline-flex shrink-0 items-center gap-2 self-start border-b border-navigation-foreground/40 pb-2 text-lg font-medium transition-colors hover:text-navigation-foreground/70 lg:self-auto ${focus}`}
             >
               Konsultasi Sekarang
@@ -59,7 +60,7 @@ export function Footer() {
                 {links.map((label) => (
                   <li key={label}>
                     <Link
-                      href={label === "Tim Kami" ? "/team" : "#"}
+                      href={label === "Tim Kami" ? ROUTES.team : ANCHORS.top}
                       className={`text-sm text-navigation-foreground/65 transition-colors hover:text-navigation-foreground ${focus}`}
                     >
                       {label}
@@ -71,7 +72,7 @@ export function Footer() {
           ))}
           <div className="col-span-2 flex flex-col items-start sm:col-span-4 lg:col-span-1 lg:items-end lg:text-right">
             <Link
-              href="#"
+              href={ANCHORS.top}
               aria-label="Sinar Asih Sumedang"
               className={`text-5xl font-bold tracking-tight ${focus}`}
             >
@@ -85,14 +86,14 @@ export function Footer() {
 
         <div className="grid max-w-2xl gap-6 sm:grid-cols-2">
           <Link
-            href="#"
+            href={ANCHORS.top}
             className={`flex items-center justify-between border-t border-navigation-foreground/40 py-5 text-sm transition-colors hover:text-navigation-foreground/70 ${focus}`}
           >
             Instagram
             <InstagramIcon className="size-5" />
           </Link>
           <Link
-            href="#"
+            href={ANCHORS.top}
             className={`flex items-center justify-between border-t border-navigation-foreground/40 py-5 text-sm transition-colors hover:text-navigation-foreground/70 ${focus}`}
           >
             WhatsApp

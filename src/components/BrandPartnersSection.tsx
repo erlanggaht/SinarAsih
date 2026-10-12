@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
+import { EXTERNAL_LINKS } from "@/lib/config";
 
 const brands = [
-  { name: "Oppo", slug: "oppo", href: "https://www.oppo.com/id/" },
-  { name: "Vivo", slug: "vivo", href: "https://www.vivo.com/id" },
-  { name: "Samsung", slug: "samsung", href: "https://www.samsung.com/id/" },
-  { name: "Realme", slug: "realme", href: "https://www.realme.com/id/" },
-  { name: "Xiaomi", slug: "xiaomi", href: "https://www.mi.co.id/id/" },
-  { name: "Infinix", slug: "infinix", href: "https://id.infinixmobility.com/" },
-  { name: "Tecno", slug: "tecno", href: "https://www.tecno-mobile.com/id/" },
-  { name: "ASUS", slug: "asus", href: "https://www.asus.com/id/" },
-  { name: "Lenovo", slug: "lenovo", href: "https://www.lenovo.com/id/id/" },
+  { name: "Oppo", slug: "oppo", href: EXTERNAL_LINKS.brands.oppo },
+  { name: "Vivo", slug: "vivo", href: EXTERNAL_LINKS.brands.vivo },
+  { name: "Samsung", slug: "samsung", href: EXTERNAL_LINKS.brands.samsung },
+  { name: "Realme", slug: "realme", href: EXTERNAL_LINKS.brands.realme },
+  { name: "Xiaomi", slug: "xiaomi", href: EXTERNAL_LINKS.brands.xiaomi },
+  { name: "Infinix", slug: "infinix", href: EXTERNAL_LINKS.brands.infinix },
+  { name: "Tecno", slug: "tecno", href: EXTERNAL_LINKS.brands.tecno },
+  { name: "ASUS", slug: "asus", href: EXTERNAL_LINKS.brands.asus },
+  { name: "Lenovo", slug: "lenovo", href: EXTERNAL_LINKS.brands.lenovo },
 ];
 
 export function BrandPartnersSection() {

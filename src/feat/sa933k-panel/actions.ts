@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { ROUTES } from "@/lib/config";
 
 export type LoginState = {
   error: string | null;
@@ -62,7 +63,7 @@ export async function loginAction(
     };
   }
 
-  redirect("/sa933k-panel");
+  redirect(ROUTES.panel.dashboard);
 }
 
 export async function logoutAction() {
@@ -70,5 +71,5 @@ export async function logoutAction() {
 
   await supabase.auth.signOut();
 
-  redirect("/sa933k-panel/login");
+  redirect(ROUTES.panel.login);
 }

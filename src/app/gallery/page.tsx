@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Gallery } from "@/components/Gallery";
+import { ROUTES } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Galeri Perusahaan | Sinar Asih",
@@ -12,7 +13,7 @@ export default function GalleryPage() {
   return (
     <section className="bg-background px-6 py-10 sm:px-12 lg:px-24 lg:py-16">
       <Link
-        href="/"
+        href={ROUTES.home}
         className="mb-8 inline-flex items-center gap-2 text-sm text-primary hover:underline focus-visible:outline-2 focus-visible:outline-ring"
       >
         <ArrowLeft className="size-4" aria-hidden="true" />

@@ -102,3 +102,83 @@
     min-height: 100vh;
   }
 }
+
+.sinar-form .erlform-grid {
+  gap: 1.25rem;
+}
+
+.sinar-form .erlform-form:empty {
+  display: none;
+}
+
+.sinar-form .erlform-field > div > :is(label, p, .erlform-error) {
+  display: none;
+}
+
+.sinar-form .erlform-field .sinar-form-label {
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.sinar-form .erlform-field .sinar-form-label:not(.sr-only) {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.sinar-form .erlform-field .sinar-form-control {
+  @apply min-h-11 w-full border border-input bg-background px-3 py-2 text-foreground;
+  border-radius: 0;
+  outline: none;
+  font: inherit;
+}
+
+.sinar-form .erlform-field .sinar-form-control:focus {
+  border-color: var(--input);
+  box-shadow: none;
+}
+
+.sinar-form .erlform-field .sinar-form-control:focus-visible {
+  @apply ring-2 ring-ring;
+}
+
+.sinar-form .erlform-field .sinar-form-control::placeholder {
+  color: var(--muted-foreground);
+}
+
+.sinar-form .erlform-field .sinar-form-control:disabled {
+  @apply cursor-not-allowed opacity-60;
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.sinar-form .erlform-field .sinar-form-control--search {
+  @apply border-border bg-card py-3 pr-4 pl-12 text-sm text-card-foreground;
+}
+
+.sinar-form .erlform-field .sinar-form-control--theme {
+  width: auto;
+  min-height: 0;
+}
+
+.sinar-form .erlform-field .sinar-form-control--theme:focus-visible,
+.sinar-form .erlform-field .sinar-form-control--search:focus-visible {
+  outline: 2px solid var(--ring);
+  box-shadow: none;
+}
+
+.sinar-form .erlform-field .sinar-form-control--theme:focus-visible {
+  outline-offset: 2px;
+}
+
+.sinar-form .erlform-field .flex > .sinar-form-label {
+  margin-bottom: 0;
+}
+
+.sinar-form .erlform-field .sinar-form-hint {
+  @apply mt-2 mb-0 text-sm text-muted-foreground;
+}
+
+.sinar-form .erlform-field .sinar-form-error {
+  @apply mt-2 mb-0 text-sm text-error;
+}

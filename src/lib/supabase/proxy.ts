@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { ROUTES } from "@/lib/config";
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -31,12 +32,12 @@ export async function updateSession(request: NextRequest) {
   const claims = claimsData?.claims;
 
   const pathname = request.nextUrl.pathname;
-  const isAdminRoute = pathname.startsWith("/sa933k-panel");
-  const isLoginRoute = pathname === "/sa933k-panel/login";
+  const isAdminRoute = pathname.startsWith(ROUTES.panel.dashboard);
+  const isLoginRoute = pathname === ROUTES.panel.login;
 
   if (isAdminRoute && !isLoginRoute && !claims) {
     const url = request.nextUrl.clone();
-    url.pathname = "/sa933k-panel/login";
+    url.pathname = ROUTES.panel.login;
 
     return NextResponse.redirect(url);
   }

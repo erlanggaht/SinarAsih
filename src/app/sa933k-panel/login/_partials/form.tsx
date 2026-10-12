@@ -1,7 +1,11 @@
 "use client";
 
-import { loginAction, LoginState } from "@/feat/sa933k-panel/actions";
-import { useActionState } from "react";
+import { useForm } from "@tanstack/react-form";
+import { loginAction, type LoginState } from "@/feat/sa933k-panel/actions";
+import { startTransition, useActionState } from "react";
+import { EmailField, PasswordField } from "@/components/forms/custom-fields";
+import { ErlangForm } from "@/components/forms/schema-form";
+import { loginSchema, type LoginValues } from "@/feat/sa933k-panel/schema";
 
 const initialState: LoginState = {
   error: null,
@@ -9,37 +13,29 @@ const initialState: LoginState = {
 
 export function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, initialState);
+  const form = useForm({
+    defaultValues: { email: "", password: "" } satisfies LoginValues,
+    validators: { onBlur: loginSchema, onSubmit: loginSchema },
+    onSubmit: ({ value }) => {
+      const data = new FormData();
+      data.set("email", value.email.trim());
+      data.set("password", value.password);
+      startTransition(() => formAction(data));
+    },
+  });
 
   return (
-    <form action={formAction} className="mt-8 space-y-5">
-      <div>
-        <label htmlFor="email" className="mb-2 block text-sm font-medium">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-          className="min-h-11 w-full border border-input bg-background px-3 py-2 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
-
-      <div>
-        <label htmlFor="password" className="mb-2 block text-sm font-medium">
-          Password
-        </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-          className="min-h-11 w-full border border-input bg-background px-3 py-2 text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
-
+    <ErlangForm<LoginValues>
+      form={form}
+      schema={loginSchema}
+      className="mt-8"
+      label="Login pengelola"
+      disabled={pending}
+      fieldConfig={{
+        email: { label: "Email", component: EmailField },
+        password: { label: "Password", component: PasswordField },
+      }}
+    >
       {state.error && (
         <p
           role="alert"
@@ -57,6 +53,6 @@ export function LoginForm() {
       >
         {pending ? "Memeriksa akun..." : "Masuk sebagai pengelola"}
       </button>
-    </form>
+    </ErlangForm>
   );
 }

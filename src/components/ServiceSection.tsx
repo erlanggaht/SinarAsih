@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { MessageCircle, PackageSearch, Truck } from "lucide-react";
+import { getWhatsAppUrl } from "@/lib/config";
 
 const services = [
   {
@@ -8,7 +9,6 @@ const services = [
       "Ceritakan kebutuhan Anda. Kami bantu memilih perangkat untuk bekerja, belajar, atau hiburan.",
     icon: MessageCircle,
     message: "Halo Sinar Asih, saya ingin konsultasi memilih perangkat.",
-    link: "https://wa.me/6281324063363?text=Halo%20Sinar%20Asih,%20saya%20ingin%20konsultasi%20memilih%20perangkat.",
     textlink: "Hubungi Kami",
   },
 
@@ -18,7 +18,6 @@ const services = [
       "Ingin menggunakan layanan COD? Hubungi kami untuk memastikan area dan ketentuan pengiriman.",
     icon: Truck,
     message: "Halo Sinar Asih, saya ingin bertanya tentang area dan ketentuan COD.",
-    link: "https://wa.me/6281324063363?text=Halo%20Sinar%20Asih,%20saya%20ingin%20bertanya%20tentang%20area%20dan%20ketentuan%20COD.",
     textlink: "Hubungi Kami",
   },
   {
@@ -27,7 +26,6 @@ const services = [
       "Tanyakan pilihan model, harga, dan stok terbaru sebelum menentukan perangkat Anda.",
     icon: PackageSearch,
     message: "Halo Sinar Asih, saya ingin mengecek harga dan ketersediaan perangkat.",
-    link: "https://wa.me/6281324063363?text=Halo%20Sinar%20Asih,%20saya%20ingin%20mengecek%20harga%20dan%20ketersediaan%20perangkat.",
     textlink: "Lihat Produk",
   },
 ];
@@ -36,10 +34,10 @@ export function ServiceSection() {
   return (
     <section aria-labelledby="services-title" className="pt-24 lg:pt-38">
       <div className="grid gap-4 md:grid-cols-3">
-        {services.map(({ title, description, icon: Icon, link, textlink }) => (
+        {services.map(({ title, description, icon: Icon, message, textlink }) => (
           <Link
             key={title}
-            href={link}
+            href={getWhatsAppUrl(message)}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex flex-col border border-t-2 border-border border-t-primary p-6 transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"

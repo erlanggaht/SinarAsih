@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { LayoutGrid, MessageCircle, Search, Truck } from "lucide-react";
+import { LayoutGrid, MessageCircle, Truck } from "lucide-react";
 import { useState } from "react";
 import { CategorySection } from "@/components/CategorySection";
 import { ServiceSection } from "@/components/ServiceSection";
 import { LocationSection } from "@/components/LocationSection";
 import { RepairSection } from "@/components/RepairSection";
 import { BrandPartnersSection } from "@/components/BrandPartnersSection";
+import { CategorySearchForm } from "@/components/forms/category-search-form";
+import { ANCHORS, getWhatsAppUrl } from "@/lib/config";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -18,29 +20,13 @@ export default function Home() {
       <div className="px-6 pt-6 pb-12 sm:px-12 lg:px-24 lg:pb-20">
         <div className="mb-5 flex flex-col gap-3 bg-background p-3 sm:flex-row sm:items-center">
           <Link
-            href="#categories"
+            href={ANCHORS.categories}
             className="flex shrink-0 items-center gap-3 px-3 py-2 font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
           >
             <LayoutGrid className="size-6 text-primary" aria-hidden="true" />
             Kategori
           </Link>
-          <div className="relative flex-1">
-            <label htmlFor="category-search" className="sr-only">
-              Cari kategori perangkat
-            </label>
-            <Search
-              className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted-foreground"
-              aria-hidden="true"
-            />
-            <input
-              id="category-search"
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Cari kategori: laptop, smartphone, printer…"
-              className="w-full border border-border bg-card py-3 pr-4 pl-12 text-sm text-card-foreground placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-ring"
-            />
-          </div>
+          <CategorySearchForm onQueryChange={setQuery} />
         </div>
 
         <section className="@container relative isolate bg-linear-to-br from-navigation-action to-brand-accent text-navigation-action-foreground">
@@ -61,7 +47,7 @@ export default function Home() {
                 Melayani Cash On Delivery (COD)
               </div>
               <Link
-                href="https://wa.me/6281324063363"
+                href={getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 inline-flex items-center gap-3 bg-card px-6 py-3.5 font-medium text-card-foreground shadow-md transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"

@@ -4,10 +4,11 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
+import { ROUTES } from "@/lib/config";
 
 const links = [
-  { label: "Beranda", href: "/" },
-  { label: "Tim Kami", href: "/team" },
+  { label: "Beranda", href: ROUTES.home },
+  { label: "Tim Kami", href: ROUTES.team },
 ];
 
 export function Navigation() {
@@ -28,7 +29,7 @@ export function Navigation() {
       <nav aria-label="Navigasi utama" className="px-10 sm:px-10">
         <div className="flex h-20 items-center justify-between gap-6">
           <Link
-            href="/"
+            href={ROUTES.home}
             aria-label="Sinar Asih Sumedang — beranda"
             onClick={() => setOpen(false)}
             className="group shrink-0 text-5xl font-bold tracking-tight text-navigation-muted transition-colors hover:text-navigation-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navigation-foreground"
@@ -67,8 +68,8 @@ export function Navigation() {
               </Link>
             ))}
             <Link
-              href="/gallery"
-              aria-current={pathname === "/gallery" ? "page" : undefined}
+              href={ROUTES.gallery}
+              aria-current={pathname === ROUTES.gallery ? "page" : undefined}
               onClick={() => setOpen(false)}
               className="mt-2 bg-navigation-action px-5 py-3 text-center text-navigation-action-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navigation-foreground lg:mt-0 lg:ml-2"
             >

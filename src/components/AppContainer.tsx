@@ -2,12 +2,13 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { ANCHORS } from "@/lib/config";
 
 export default function AppContainer({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Link
-        href="#main-content"
+        href={ANCHORS.mainContent}
         className="sr-only fixed top-3 left-3 z-50 rounded-sm bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only"
       >
         Lewati navigasi

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { InstagramIcon, WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { teamMembers } from "@/data/team";
+import { getWhatsAppUrl, ROUTES } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Tim Kami | Sinar Asih",
@@ -15,7 +16,7 @@ export default function TeamPage() {
     <section className="bg-background px-6 py-10 sm:px-12 lg:px-24 lg:py-16">
       <div className="mx-auto max-w-6xl">
         <Link
-          href="/"
+          href={ROUTES.home}
           className="mb-8 inline-flex items-center gap-2 text-sm text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           <ArrowLeft className="size-4" aria-hidden="true" />
@@ -48,7 +49,7 @@ export default function TeamPage() {
                   {[
                     {
                       label: "WhatsApp",
-                      href: whatsapp ? `https://wa.me/${whatsapp}` : null,
+                      href: whatsapp ? getWhatsAppUrl(undefined, whatsapp) : null,
                       Icon: WhatsAppIcon,
                     },
                     { label: "Instagram", href: instagram, Icon: InstagramIcon },
@@ -93,7 +94,7 @@ export default function TeamPage() {
             </p>
           </div>
           <Link
-            href="https://wa.me/6281324063363"
+            href={getWhatsAppUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex shrink-0 items-center justify-center gap-2 self-start bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"

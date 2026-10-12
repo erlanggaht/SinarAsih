@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Laptop, Printer, Smartphone } from "lucide-react";
+import { getWhatsAppUrl } from "@/lib/config";
 
 const repairs = [
   {
@@ -42,7 +43,7 @@ export function RepairSection() {
             Konsultasikan kendala perangkat Anda atau kunjungi toko untuk berkonsultasi.
           </p>
           <Link
-            href="https://wa.me/6281324063363?text=Halo%20Sinar%20Asih%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20servis."
+            href={getWhatsAppUrl("Halo Sinar Asih, saya ingin bertanya tentang layanan servis.")}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-7 inline-flex items-center gap-3 bg-navigation-action px-5 py-3 text-sm font-medium text-navigation-action-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navigation-foreground"

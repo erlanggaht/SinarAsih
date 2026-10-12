@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Navigation } from "lucide-react";
-
-const mapEmbedUrl =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5822.09630829556!2d107.921047972043!3d-6.851553304185402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68d13c23b8d543%3A0xcc70fffbbb6b33af!2sSinar%20Asih%20Makmur%20Sumedang!5e0!3m2!1sid!2sid!4v1687095605018!5m2!1sid!2sid";
-
-const mapUrl = "https://www.google.com/maps/search/?api=1&query=Sinar%20Asih%20Makmur%20Sumedang";
-const directionsUrl =
-  "https://www.google.com/maps/dir/?api=1&destination=Sinar%20Asih%20Makmur%20Sumedang";
+import { EXTERNAL_LINKS } from "@/lib/config";
 
 export function LocationSection() {
   return (
@@ -30,7 +24,7 @@ export function LocationSection() {
           </p>
           <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
-              href={directionsUrl}
+              href={EXTERNAL_LINKS.maps.directions}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
@@ -40,7 +34,7 @@ export function LocationSection() {
               <span className="sr-only">di Google Maps (buka tab baru)</span>
             </Link>
             <Link
-              href={mapUrl}
+              href={EXTERNAL_LINKS.maps.search}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 border border-border px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
@@ -53,7 +47,7 @@ export function LocationSection() {
         <div className="min-h-80 border-t border-border bg-muted lg:min-h-110 lg:border-t-0 lg:border-l">
           <iframe
             title="Lokasi Sinar Asih Makmur Sumedang di Google Maps"
-            src={mapEmbedUrl}
+            src={EXTERNAL_LINKS.maps.embed}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
