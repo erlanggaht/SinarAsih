@@ -1,13 +1,10 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Gallery } from "@/components/Gallery";
 import { BRAND_NAME, ROUTES } from "@/lib/config";
+import { getPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Galeri Perusahaan | ${BRAND_NAME}`,
-  description: `Dokumentasi kegiatan dan momen kebersamaan ${BRAND_NAME}.`,
-};
+export const metadata = getPageMetadata("gallery");
 
 export default function GalleryPage() {
   return (

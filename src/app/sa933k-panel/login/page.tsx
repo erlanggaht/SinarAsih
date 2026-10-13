@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
 import { LoginForm } from "@/app/sa933k-panel/login/_partials/form";
 import { BRAND_NAME } from "@/lib/config";
+import { getPrivateMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Login Pengelola | ${BRAND_NAME}`,
-};
+export const metadata = getPrivateMetadata("Login Pengelola");
 
 export default function AdminLoginPage() {
   return (

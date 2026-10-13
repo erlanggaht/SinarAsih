@@ -49,8 +49,8 @@ export default function HomeContent({
                 {BRAND_NAME}
               </h1>
               <p className="mt-5 max-w-md text-base leading-relaxed text-white/90 lg:max-w-[45%]">
-                Selamat datang di mitra perangkat gadget terpercaya Anda. Jangan ragu untuk bertanya
-                kepada kami dan kunjungi toko kami.
+                Sinar Asih Sumedang menyediakan HP, laptop, komputer, dan aksesori untuk kebutuhan
+                Anda. Konsultasikan pilihan perangkat atau kunjungi toko kami di Sumedang.
               </p>
               <div className="mt-5 flex items-center gap-2 text-sm text-white/90">
                 <Truck className="size-5" aria-hidden="true" />

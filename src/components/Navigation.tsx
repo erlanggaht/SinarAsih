@@ -75,7 +75,7 @@ export function Navigation() {
                 href={ROUTES.panel.dashboard}
                 aria-current={
                   pathname === ROUTES.panel.dashboard ||
-                  pathname.startsWith(`${ROUTES.panel.dashboard}/`)
+                    pathname.startsWith(`${ROUTES.panel.dashboard}/`)
                     ? "page"
                     : undefined
                 }

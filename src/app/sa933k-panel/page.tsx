@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { LogoutForm } from "@/components/forms/logout-form";
 import { PanelMenu } from "@/components/PanelMenu";
-import { BRAND_NAME, ROUTES } from "@/lib/config";
+import { ROUTES } from "@/lib/config";
+import { getPrivateMetadata } from "@/lib/seo";
 import { getServerSession } from "@/lib/auth/get-server-session";
 
-export const metadata: Metadata = {
-  title: `Admin | ${BRAND_NAME}`,
-};
+export const metadata = getPrivateMetadata("Admin");
 
 export default async function AdminPage() {
   const supabase = await createClient();

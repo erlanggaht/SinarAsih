@@ -39,11 +39,11 @@ export const EXTERNAL_LINKS = {
   whatsappBase: "https://wa.me",
   whatsappNumber: "6281313555545",
   maps: {
-    search: "https://www.google.com/maps/search/?api=1&query=Sinar%20Asih%20Makmur%20Sumedang",
+    search: "https://maps.app.goo.gl/fks4FPQcnmvZKj2G9",
     directions:
-      "https://www.google.com/maps/dir/?api=1&destination=Sinar%20Asih%20Makmur%20Sumedang",
+      "https://www.google.com/maps/dir/?api=1&destination=Sinar%20Asih%20Gadget%Center%20Sumedang",
     embed:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5822.09630829556!2d107.921047972043!3d-6.851553304185402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68d13c23b8d543%3A0xcc70fffbbb6b33af!2sSinar%20Asih%20Makmur%20Sumedang!5e0!3m2!1sid!2sid!4v1687095605018!5m2!1sid!2sid",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.6521609711647!2d107.9213973388073!3d-6.854079185244184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68d186c37e5c53%3A0xd86d1db22e04b6fa!2sSinar%20Asih%20Gadget%20Center%20Sumedang!5e0!3m2!1sid!2sid!4v1791881599402!5m2!1sid!2sid",
   },
   brands: {
     oppo: "https://www.oppo.com/id/",

@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { BRAND_NAME, ROUTES } from "@/lib/config";
+import { ROUTES } from "@/lib/config";
+import { getPrivateMetadata } from "@/lib/seo";
 import { getAdminContext } from "@/feat/sa933k-panel/admin-context";
 import { PRODUCT_COLUMNS, type Product, type ProductCategory } from "@/feat/products/schema";
 import { ProductManager } from "./_partials/product-manager";
 
-export const metadata: Metadata = { title: `Kelola Produk | ${BRAND_NAME}` };
+export const metadata = getPrivateMetadata("Kelola Produk");
 
 export default async function ProductsPage({
   searchParams,

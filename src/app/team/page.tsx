@@ -1,15 +1,12 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { InstagramIcon, WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { teamMembers } from "@/data/team";
 import { BRAND_NAME, getWhatsAppUrl, ROUTES } from "@/lib/config";
+import { getPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `Tim Kami | ${BRAND_NAME}`,
-  description: `Kenali Yusuf Saeful Rizkie dan Dede Kusnandar, tim ${BRAND_NAME}.`,
-};
+export const metadata = getPageMetadata("team");
 
 export default function TeamPage() {
   return (
