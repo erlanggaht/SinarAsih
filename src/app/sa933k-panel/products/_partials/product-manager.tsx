@@ -15,14 +15,17 @@ export function ProductManager({
   initialProducts,
   categories,
   canDelete = false,
+  initialEditId,
 }: {
   initialProducts: Product[];
   categories: ProductCategory[];
   canDelete?: boolean;
+  initialEditId?: number;
 }) {
   const [products, setProducts] = useState(initialProducts);
-  const [selected, setSelected] = useState<Product | null>(null);
-  const [editing, setEditing] = useState(false);
+  const initialProduct = initialProducts.find((product) => product.id === initialEditId) ?? null;
+  const [selected, setSelected] = useState<Product | null>(initialProduct);
+  const [editing, setEditing] = useState(Boolean(initialProduct));
   const [pending, setPending] = useState(false);
   const [filters, setFilters] = useState<ProductFilters>({ query: "", category: "" });
   const [status, setStatus] = useState<Status>("all");

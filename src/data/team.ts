@@ -11,12 +11,18 @@ export const teamMembers: TeamMember[] = [
     name: "Yusuf Saeful Rizkie",
     photo: "/team/yusuf.jpg",
     whatsapp: null,
-    instagram: null,
+    instagram: "https://www.instagram.com/inidiaucup_/tagged/",
   },
   {
     name: "Dede Kusnandar",
     photo: "/team/dede.jpeg",
     whatsapp: null,
-    instagram: null,
+    instagram: "https://www.instagram.com/dsadiprja_/",
+  },
+  {
+    name: "Erlangga Hidayatullah",
+    photo: "/team/erlangga.webp",
+    whatsapp: null,
+    instagram: "https://www.instagram.com/erlanggaht93",
   },
 ];

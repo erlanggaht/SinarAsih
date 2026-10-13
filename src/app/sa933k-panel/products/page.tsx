@@ -8,7 +8,12 @@ import { ProductManager } from "./_partials/product-manager";
 
 export const metadata: Metadata = { title: "Kelola Produk | Sinar Asih" };
 
-export default async function ProductsPage() {
+export default async function ProductsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ edit?: string }>;
+}) {
+  const { edit } = await searchParams;
   const { supabase, profile } = await getAdminContext();
   if (!profile) redirect(ROUTES.panel.dashboard);
   const [products, categories] = await Promise.all([
@@ -32,6 +37,8 @@ export default async function ProductsPage() {
         </p>
       </header>
       <ProductManager
+        key={edit ?? "list"}
+        initialEditId={edit && /^[1-9]\d*$/.test(edit) ? Number(edit) : undefined}
         canDelete={profile.role === "owner"}
         initialProducts={(products.data ?? []) as unknown as Product[]}
         categories={(categories.data ?? []) as ProductCategory[]}

@@ -3,6 +3,7 @@ const API_BASE = `/api${PANEL_BASE}`;
 
 export const ROUTES = {
   home: "/",
+  catalog: "/catalog",
   team: "/team",
   gallery: "/gallery",
   panel: {
@@ -33,7 +34,7 @@ export const ANCHORS = {
 
 export const EXTERNAL_LINKS = {
   whatsappBase: "https://wa.me",
-  whatsappNumber: "6281324063363",
+  whatsappNumber: "6281313555545",
   maps: {
     search: "https://www.google.com/maps/search/?api=1&query=Sinar%20Asih%20Makmur%20Sumedang",
     directions:

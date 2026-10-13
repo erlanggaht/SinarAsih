@@ -1,48 +1,76 @@
-import Image from "next/image";
+"use client";
+
+import { ProductImage } from "@/components/ProductImage";
+import { ProductDetailDialog } from "@/components/ProductDetailDialog";
+import { Pencil } from "lucide-react";
+import { useState } from "react";
+import { useSession } from "@/hooks/use-session";
 import Link from "next/link";
 import { demoProductCategories, demoProducts } from "@/data/products";
 import { formatProductPrice, type Product } from "@/feat/products/schema";
-import { getWhatsAppUrl } from "@/lib/config";
+import { getWhatsAppUrl, ROUTES } from "@/lib/config";
 
 export function ProductCard({ product, categoryName }: { product: Product; categoryName: string }) {
+  const { isAuthenticated } = useSession();
+  const [detailsOpen, setDetailsOpen] = useState(false);
   return (
     <article className="flex h-full flex-col border border-border bg-card text-card-foreground">
       <div className="relative m-3 aspect-4/3 bg-white">
-        {product.image_path && (
-          <Image
-            src={product.image_path}
-            alt={product.name}
-            fill
-            sizes="(min-width: 1024px) 28vw, (min-width: 640px) 42vw, 90vw"
-            className="object-contain p-5"
-          />
+        <ProductImage src={product.image_path} name={product.name} />
+        {isAuthenticated && (
+          <Link
+            href={`${ROUTES.panel.products}?edit=${product.id}`}
+            aria-label={`Edit produk ${product.name}`}
+            title="Edit produk"
+            className="absolute top-2 right-2 flex size-11 items-center justify-center border border-border bg-card text-primary shadow-sm hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
+          >
+            <Pencil className="size-5" aria-hidden="true" />
+          </Link>
         )}
       </div>
       <div className="flex flex-1 flex-col px-5 pt-2 pb-5">
         <p className="text-xs text-muted-foreground">{categoryName}</p>
         <h3 className="mt-2 text-lg font-semibold wrap-anywhere">{product.name}</h3>
-        <p className="mt-2 text-sm leading-6 text-muted-foreground">{product.description}</p>
+        <p className="mt-2 line-clamp-3 text-sm leading-6 wrap-anywhere text-muted-foreground">
+          {product.description}
+        </p>
         <div className="mt-auto pt-5">
           <p className="text-xl font-semibold text-primary tabular-nums">
-            {formatProductPrice(product.price)}
+            {product.price === null ? "Hubungi untuk harga" : formatProductPrice(product.price)}
           </p>
           <p
             className={`mt-2 text-sm ${product.current_stock > 0 ? "text-success" : "text-muted-foreground"}`}
           >
-            {product.current_stock > 0 ? "Stok tersedia" : "Stok habis"}
+            {product.current_stock > 0
+              ? `Stok tersedia: ${new Intl.NumberFormat("id-ID").format(product.current_stock)} unit`
+              : "Stok habis: 0 unit"}
           </p>
           <Link
             href={getWhatsAppUrl(`Halo Sinar Asih, saya ingin bertanya tentang ${product.name}.`)}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center justify-center gap-2 bg-primary px-3 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring w-full"
-
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-primary px-3 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
             Tanya produk
             <span className="sr-only">{product.name} melalui WhatsApp (buka tab baru)</span>
           </Link>
+          <button
+            type="button"
+            onClick={() => setDetailsOpen(true)}
+            aria-label={`Lihat detail ${product.name}`}
+            className="mt-3 min-h-11 w-full border border-border px-3 py-3 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
+          >
+            Lihat detail
+          </button>
         </div>
       </div>
+      {detailsOpen && (
+        <ProductDetailDialog
+          product={product}
+          categoryName={categoryName}
+          onClose={() => setDetailsOpen(false)}
+        />
+      )}
     </article>
   );
 }

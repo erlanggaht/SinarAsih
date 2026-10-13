@@ -9,6 +9,7 @@ import { useSession } from "@/hooks/use-session";
 
 const links = [
   { label: "Beranda", href: ROUTES.home },
+  { label: "Katalog", href: ROUTES.catalog },
   { label: "Tim Kami", href: ROUTES.team },
 ];
 

@@ -46,7 +46,7 @@ export default async function AdminPage() {
   }
 
   return (
-    <section className="mx-auto max-w-5xl px-6 py-12">
+    <section className="px-6 py-10 sm:px-12 lg:px-24 lg:py-16">
       <header className="border-b border-border pb-6">
         <p className="text-sm text-muted-foreground">Panel pengelola</p>
         <h1 className="mt-2 text-3xl font-bold">Selamat datang, {profile.full_name}</h1>
