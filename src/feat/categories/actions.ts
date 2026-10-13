@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { ROUTES } from "@/lib/config";
 import { getAdminContext } from "@/feat/sa933k-panel/admin-context";
-import { categorySchema, type Category } from "./schema";
+import { CATEGORY_COLUMNS, categorySchema, type Category } from "./schema";
 import { categoryDeleteRequestSchema, type CategoryDeletePreview } from "./delete-schema";
 
 type SaveResult = { success: true; category: Category } | { success: false; error: string };
@@ -23,14 +23,18 @@ export async function saveCategoryAction(input: unknown, id?: unknown): Promise<
     if (!profile)
       return { success: false, error: "Sesi pengelola tidak aktif. Silakan masuk kembali." };
 
-    const values = { ...parsed.data, description: parsed.data.description || null };
+    const values = {
+      ...parsed.data,
+      description: parsed.data.description || null,
+      image_path: parsed.data.image_path || null,
+    };
     const query = categoryId?.success
       ? supabase
           .from("categories")
           .update({ ...values, updated_at: new Date().toISOString() })
           .eq("id", categoryId.data)
       : supabase.from("categories").insert(values);
-    const { data, error } = await query.select("id, name, slug, description, is_active").single();
+    const { data, error } = await query.select(CATEGORY_COLUMNS).single();
 
     if (error || !data) {
       const message =
@@ -41,6 +45,8 @@ export async function saveCategoryAction(input: unknown, id?: unknown): Promise<
     }
 
     revalidatePath(ROUTES.panel.categories);
+    revalidatePath(ROUTES.home);
+    revalidatePath(ROUTES.catalog);
     return { success: true, category: data as Category };
   } catch {
     return { success: false, error: "Tidak dapat menghubungi server. Silakan coba lagi." };

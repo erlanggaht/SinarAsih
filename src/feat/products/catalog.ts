@@ -1,6 +1,6 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
-import type { Category } from "@/feat/categories/schema";
+import { CATEGORY_COLUMNS, type Category } from "@/feat/categories/schema";
 import { PRODUCT_COLUMNS, type Product } from "./schema";
 
 export async function getCatalogData() {
@@ -13,7 +13,7 @@ export async function getCatalogData() {
   for (let offset = 0; ; offset += 500) {
     const result = await supabase
       .from("categories")
-      .select("id, name, slug, description, is_active")
+      .select(CATEGORY_COLUMNS)
       .eq("is_active", true)
       .order("id")
       .range(offset, offset + 499);

@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { ROUTES } from "@/lib/config";
 import { getAdminContext } from "@/feat/sa933k-panel/admin-context";
-import { PRODUCT_COLUMNS, productSchema, type Product } from "./schema";
+import { PRODUCT_COLUMNS, productGallerySchema, type Product } from "./schema";
 
 const identitySchema = z.object({
   id: z.number().int().positive().safe(),
@@ -13,7 +13,7 @@ const identitySchema = z.object({
 type SaveResult = { success: true; product: Product } | { success: false; error: string };
 
 export async function saveProductAction(input: unknown, identity?: unknown): Promise<SaveResult> {
-  const parsed = productSchema.safeParse(input);
+  const parsed = productGallerySchema.safeParse(input);
   if (!parsed.success) return { success: false, error: parsed.error.issues[0].message };
   const original = identity === undefined ? undefined : identitySchema.safeParse(identity);
   if (original && !original.success)
@@ -53,6 +53,8 @@ export async function saveProductAction(input: unknown, identity?: unknown): Pro
       description: parsed.data.description || null,
       price: parsed.data.price ?? null,
       image_path: parsed.data.image_path || null,
+      image_path_2: parsed.data.image_path_2 || null,
+      image_path_3: parsed.data.image_path_3 || null,
     };
     const query = original?.success
       ? supabase
@@ -74,6 +76,8 @@ export async function saveProductAction(input: unknown, identity?: unknown): Pro
       return { success: false, error: message };
     }
     revalidatePath(ROUTES.panel.products);
+    revalidatePath(ROUTES.catalog);
+    revalidatePath(ROUTES.home);
     return { success: true, product: data as unknown as Product };
   } catch {
     return { success: false, error: "Tidak dapat menghubungi server. Silakan coba lagi." };

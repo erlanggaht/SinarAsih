@@ -39,17 +39,21 @@ export function CatalogSkeleton() {
       <Skeleton className="mt-5 h-10 w-64 max-w-full" />
       <Skeleton className="mt-4 h-5 w-full max-w-2xl" />
       <div className="mt-8 grid gap-8 lg:grid-cols-[260px_1fr]">
-        <aside aria-hidden="true" className="space-y-4 self-start border border-border bg-card p-5">
-          <Skeleton className="h-5 w-32" />
+        <aside
+          aria-hidden="true"
+          className="order-2 grid grid-cols-1 gap-4 self-start border border-border bg-card p-5 lg:order-1"
+        >
+          <Skeleton className="h-6 w-32" />
           {Array.from({ length: 7 }, (_, i) => (
             <div key={i}>
-              <Skeleton className="mb-2 h-4 w-24" />
-              <Skeleton className="h-11" />
+              <Skeleton className="h-5 w-24" />
+              <Skeleton className="mt-2 h-11" />
             </div>
           ))}
           <Skeleton className="h-11" />
+          <Skeleton className="mx-auto h-9 w-32" />
         </aside>
-        <div>
+        <div className="order-1 min-w-0 lg:order-2">
           <Skeleton className="mb-5 h-4 w-48" />
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {Array.from({ length: 6 }, (_, i) => (

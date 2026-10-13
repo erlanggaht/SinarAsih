@@ -201,3 +201,7 @@
 .sinar-form .erlform-field .sinar-form-error {
   @apply mt-2 mb-0 text-sm text-error;
 }
+
+.sinar-form .erlform-field .sinar-form-control--money {
+  padding-left: 2.5rem;
+}

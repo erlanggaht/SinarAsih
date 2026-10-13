@@ -1,4 +1,4 @@
-export const BRAND_NAME = "Sinar Asih Gadget Centre";
+export const BRAND_NAME = "Sinar Asih Sumedang";
 
 const PANEL_BASE = "/sa933k-panel";
 const API_BASE = `/api${PANEL_BASE}`;

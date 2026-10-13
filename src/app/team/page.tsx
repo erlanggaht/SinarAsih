@@ -1,14 +1,17 @@
-import Image from "next/image";
+import { ProfileImage } from "@/components/ProfileImage";
 import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { InstagramIcon, WhatsAppIcon } from "@/components/icons/SocialIcons";
-import { teamMembers } from "@/data/team";
+import { getPublicTeam } from "@/feat/admins/team";
 import { BRAND_NAME, getWhatsAppUrl, ROUTES } from "@/lib/config";
 import { getPageMetadata } from "@/lib/seo";
 
 export const metadata = getPageMetadata("team");
 
-export default function TeamPage() {
+export const dynamic = "force-dynamic";
+
+export default async function TeamPage() {
+  const teamMembers = await getPublicTeam();
   return (
     <section className="bg-background px-6 py-10 sm:px-12 lg:px-24 lg:py-16">
       <Link
@@ -26,60 +29,69 @@ export default function TeamPage() {
         </p>
       </header>
 
-      <div className="grid gap-6 sm:grid-cols-3 lg:gap-8">
-        {teamMembers.map(({ name, photo, whatsapp, instagram }, index) => (
-          <article key={name} className="border border-border bg-card text-card-foreground">
-            <div className="relative aspect-4/3 overflow-hidden bg-muted">
-              <Image
-                src={photo}
-                alt={name}
-                fill
-                preload={index === 0}
-                sizes="(min-width: 1280px) 560px, (min-width: 640px) 45vw, 90vw"
-                className="object-cover object-top"
-              />
-            </div>
-            <div className="border-t-2 border-t-primary px-6 py-6 sm:px-8">
-              <h2 className="text-xl font-semibold sm:text-2xl">{name}</h2>
-              <div className="mt-5 flex flex-wrap gap-3">
-                {[
-                  {
-                    label: "WhatsApp",
-                    href: whatsapp ? getWhatsAppUrl(undefined, whatsapp) : null,
-                    Icon: WhatsAppIcon,
-                  },
-                  { label: "Instagram", href: instagram, Icon: InstagramIcon },
-                ].map(({ label, href, Icon }) =>
-                  href ? (
-                    <Link
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${label} ${name} (buka tab baru)`}
-                      className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                    >
-                      <Icon className="size-5" />
-                      {label}
-                    </Link>
-                  ) : (
-                    <button
-                      key={label}
-                      type="button"
-                      disabled
-                      title={`Kontak ${label} belum tersedia`}
-                      className="inline-flex cursor-not-allowed items-center gap-2 border border-border px-4 py-3 text-sm text-muted-foreground opacity-50"
-                    >
-                      <Icon className="size-5" />
-                      {label}
-                      <span className="sr-only"> {name}, kontak belum tersedia</span>
-                    </button>
-                  ),
-                )}
+      {teamMembers.length === 0 && (
+        <p
+          role="status"
+          className="mb-8 border border-border p-8 text-center text-muted-foreground"
+        >
+          Informasi tim belum tersedia.
+        </p>
+      )}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {teamMembers.map(
+          ({ full_name: name, image_path: photo, position, whatsapp, instagram }, index) => (
+            <article
+              key={`${name}-${index}`}
+              className="border border-border bg-card text-card-foreground"
+            >
+              <div className="relative aspect-4/3 overflow-hidden bg-muted">
+                <ProfileImage src={photo} name={name} />
               </div>
-            </div>
-          </article>
-        ))}
+              <div className="border-t-2 border-t-primary px-6 py-6 sm:px-8">
+                <h2 className="text-xl font-semibold sm:text-2xl">{name}</h2>
+                {position && (
+                  <p className="mt-2 text-sm font-medium wrap-anywhere text-primary">{position}</p>
+                )}
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {[
+                    {
+                      label: "WhatsApp",
+                      href: whatsapp ? getWhatsAppUrl(undefined, whatsapp) : null,
+                      Icon: WhatsAppIcon,
+                    },
+                    { label: "Instagram", href: instagram, Icon: InstagramIcon },
+                  ].map(({ label, href, Icon }) =>
+                    href ? (
+                      <Link
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${label} ${name} (buka tab baru)`}
+                        className="inline-flex items-center gap-2 border border-border px-4 py-3 text-sm font-medium transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                      >
+                        <Icon className="size-5" />
+                        {label}
+                      </Link>
+                    ) : (
+                      <button
+                        key={label}
+                        type="button"
+                        disabled
+                        title={`Kontak ${label} belum tersedia`}
+                        className="inline-flex cursor-not-allowed items-center gap-2 border border-border px-4 py-3 text-sm text-muted-foreground opacity-50"
+                      >
+                        <Icon className="size-5" />
+                        {label}
+                        <span className="sr-only"> {name}, kontak belum tersedia</span>
+                      </button>
+                    ),
+                  )}
+                </div>
+              </div>
+            </article>
+          ),
+        )}
       </div>
 
       <div className="mt-10 flex flex-col gap-6 border border-border bg-card p-6 sm:p-8 lg:flex-row lg:items-center lg:justify-between">

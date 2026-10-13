@@ -18,7 +18,7 @@ import {
 } from "@/feat/products/image-upload";
 import { saveProductAction } from "@/feat/products/actions";
 import {
-  productSchema,
+  productGallerySchema,
   productSlug,
   type Product,
   type ProductCategory,
@@ -57,7 +57,7 @@ export function ProductForm({
 }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<Record<string, File | null>>({});
   const [uploading, setUploading] = useState(false);
   const categoryOptions = [
     { value: "", label: "Pilih kategori" },
@@ -80,16 +80,20 @@ export function ProductForm({
       current_stock: product?.current_stock ?? 0,
       minimum_stock: product?.minimum_stock ?? 0,
       image_path: product?.image_path ?? "",
+      image_path_2: product?.image_path_2 ?? "",
+      image_path_3: product?.image_path_3 ?? "",
       is_active: product?.is_active ?? true,
     } as ProductValues,
-    validators: { onBlur: productSchema, onSubmit: productSchema },
+    validators: { onBlur: productGallerySchema, onSubmit: productGallerySchema },
     onSubmit: async ({ value }) => {
       setError(null);
       setPending(true);
       onPendingChange(true);
       try {
-        let imagePath = value.image_path;
-        if (imageFile) {
+        const imageValues = { ...value };
+        for (const field of ["image_path", "image_path_2", "image_path_3"] as const) {
+          const imageFile = imageFiles[field];
+          if (!imageFile) continue;
           const invalid = validateProductImage(imageFile);
           if (invalid) {
             setError(invalid);
@@ -120,13 +124,15 @@ export function ProductForm({
             setError("Gambar gagal diunggah. Periksa koneksi dan akses Storage, lalu coba lagi.");
             return;
           }
-          imagePath = supabase.storage.from(PRODUCT_IMAGE_BUCKET).getPublicUrl(path).data.publicUrl;
-          form.setFieldValue("image_path", imagePath);
-          setImageFile(null);
+          const imagePath = supabase.storage.from(PRODUCT_IMAGE_BUCKET).getPublicUrl(path)
+            .data.publicUrl;
+          imageValues[field] = imagePath;
+          form.setFieldValue(field, imagePath);
+          setImageFiles((current) => ({ ...current, [field]: null }));
           setUploading(false);
         }
         const result = await saveProductAction(
-          { ...value, image_path: imagePath },
+          imageValues,
           product ? { id: product.id, updated_at: product.updated_at } : undefined,
         );
         if (!result.success) {
@@ -163,10 +169,15 @@ export function ProductForm({
             kategori aktif jika ingin menampilkannya.
           </p>
         )}
-      <ProductImageUploadContext.Provider value={{ file: imageFile, setFile: setImageFile }}>
+      <ProductImageUploadContext.Provider
+        value={{
+          files: imageFiles,
+          setFile: (name, file) => setImageFiles((current) => ({ ...current, [name]: file })),
+        }}
+      >
         <ErlangForm<ProductValues>
           form={form}
-          schema={productSchema}
+          schema={productGallerySchema}
           className="mt-8"
           label={product ? "Edit produk" : "Tambah produk"}
           disabled={pending}
@@ -216,8 +227,9 @@ export function ProductForm({
             },
             price: {
               label: "Harga (Rp, opsional)",
-              placeholder: "6500000",
-              description: "Kosongkan jika harga belum ditentukan. Angka 0 berarti harga nol.",
+              placeholder: "6.500.000",
+              description:
+                "Harga otomatis dipisahkan dengan titik. Gunakan koma untuk desimal. Kosongkan jika belum ditentukan.",
               component: MoneyField,
               section: "inventory",
               layout: { sm: 12 },
@@ -240,9 +252,21 @@ export function ProductForm({
             },
             image_path: {
               component: ProductImageField,
-              label: "URL/path gambar (opsional)",
+              label: "Foto 1 — utama (opsional)",
               placeholder: "/products/asusLaptop.png",
               description: "Masukkan path gambar lokal atau URL HTTPS gambar yang sudah tersedia.",
+              section: "catalog",
+            },
+            image_path_2: {
+              component: ProductImageField,
+              label: "Foto 2 (opsional)",
+              placeholder: "URL HTTPS atau path gambar",
+              section: "catalog",
+            },
+            image_path_3: {
+              component: ProductImageField,
+              label: "Foto 3 (opsional)",
+              placeholder: "URL HTTPS atau path gambar",
               section: "catalog",
             },
             is_active: {

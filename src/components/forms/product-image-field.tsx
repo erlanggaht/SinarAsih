@@ -9,8 +9,8 @@ import { ProductImage } from "@/components/ProductImage";
 import { TextField } from "./custom-fields";
 
 export const ProductImageUploadContext = createContext<{
-  file: File | null;
-  setFile: (file: File | null) => void;
+  files: Record<string, File | null>;
+  setFile: (name: string, file: File | null) => void;
 } | null>(null);
 
 export function ProductImageField(props: FieldComponentProps<string, ProductValues>) {
@@ -18,7 +18,7 @@ export function ProductImageField(props: FieldComponentProps<string, ProductValu
   const id = useId();
   const [preview, setPreview] = useState<{ file: File; url: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const file = upload?.file;
+  const file = upload?.files[props.field.name];
   useEffect(() => {
     if (!preview) return;
     return () => URL.revokeObjectURL(preview.url);
@@ -64,7 +64,7 @@ export function ProductImageField(props: FieldComponentProps<string, ProductValu
               const bitmap = await createImageBitmap(selected);
               bitmap.close();
               setPreview({ file: selected, url: URL.createObjectURL(selected) });
-              upload.setFile(selected);
+              upload.setFile(props.field.name, selected);
             } catch {
               setError("File tidak dapat dibaca sebagai gambar. Pilih gambar lain.");
             }
@@ -85,7 +85,7 @@ export function ProductImageField(props: FieldComponentProps<string, ProductValu
             <button
               type="button"
               onClick={() => {
-                upload.setFile(null);
+                upload.setFile(props.field.name, null);
                 setPreview(null);
                 setError(null);
               }}

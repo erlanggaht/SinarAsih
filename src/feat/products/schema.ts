@@ -60,10 +60,15 @@ export const productSchema = z.object({
   is_active: z.boolean(),
 });
 
-export type ProductValues = z.infer<typeof productSchema>;
+export const productGallerySchema = productSchema.extend({
+  image_path_2: productSchema.shape.image_path,
+  image_path_3: productSchema.shape.image_path,
+});
+
+export type ProductValues = z.infer<typeof productGallerySchema>;
 export type Product = Omit<
   ProductValues,
-  "category_id" | "brand" | "description" | "price" | "image_path"
+  "category_id" | "brand" | "description" | "price" | "image_path" | "image_path_2" | "image_path_3"
 > & {
   id: number;
   category_id: number;
@@ -71,12 +76,14 @@ export type Product = Omit<
   description: string | null;
   price: number | null;
   image_path: string | null;
+  image_path_2: string | null;
+  image_path_3: string | null;
   updated_at: string;
 };
 export type ProductCategory = { id: number; name: string; is_active: boolean };
 
 export const PRODUCT_COLUMNS =
-  "id, category_id, sku, name, slug, brand, description, price, current_stock, minimum_stock, image_path, is_active, updated_at";
+  "id, category_id, sku, name, slug, brand, description, price, current_stock, minimum_stock, image_path, image_path_2, image_path_3, is_active, updated_at";
 
 export function productSlug(name: string) {
   return name

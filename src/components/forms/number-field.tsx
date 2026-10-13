@@ -69,5 +69,5 @@ export function createNumberField({
 }
 
 export const NumberField = createNumberField();
-export const MoneyField = createNumberField({ step: 0.01 });
+export { MoneyField } from "./money-field";
 export const StockField = createNumberField({ step: 1 });

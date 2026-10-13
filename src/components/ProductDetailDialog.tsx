@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { ProductImage } from "@/components/ProductImage";
 import { formatProductPrice, type Product } from "@/feat/products/schema";
@@ -18,6 +18,10 @@ export function ProductDetailDialog({
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const titleId = useId();
+  const [selected, setSelected] = useState(0);
+  const images = [product.image_path, product.image_path_2, product.image_path_3].filter(
+    (src): src is string => Boolean(src),
+  );
   useEffect(() => {
     const element = dialog.current;
     const trigger = document.activeElement;
@@ -53,8 +57,24 @@ export function ProductDetailDialog({
       </header>
       <div className="p-5 sm:p-6">
         <div className="relative aspect-4/3 overflow-hidden bg-white">
-          <ProductImage src={product.image_path} name={product.name} />
+          <ProductImage src={images[selected] ?? null} name={product.name} />
         </div>
+        {images.length > 1 && (
+          <div className="mt-3 flex gap-3" aria-label="Foto produk">
+            {images.map((src, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setSelected(index)}
+                aria-label={`Lihat foto ${index + 1}`}
+                aria-pressed={selected === index}
+                className={`relative size-20 overflow-hidden border-2 bg-white focus-visible:outline-2 focus-visible:outline-ring ${selected === index ? "border-primary" : "border-border"}`}
+              >
+                <ProductImage src={src} name={`${product.name}, foto ${index + 1}`} />
+              </button>
+            ))}
+          </div>
+        )}
         <p className="mt-5 text-2xl font-semibold text-primary">
           {product.price === null ? "Hubungi untuk harga" : formatProductPrice(product.price)}
         </p>

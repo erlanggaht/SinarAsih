@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { ArrowLeft, Pencil, Plus, Trash2 } from "lucide-react";
 import type { Category } from "@/feat/categories/schema";
 import { CategorySearchForm } from "@/components/forms/category-search-form";
+import { ProductImage } from "@/components/ProductImage";
 import { CategoryForm } from "./category-form";
 import { DeleteCategoryDialog } from "./delete-category-dialog";
 
@@ -134,14 +135,26 @@ export function CategoryManager({
                   key={category.id}
                   className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-3 p-5 md:grid-cols-[minmax(0,1fr)_7rem_13rem] md:items-center md:gap-5 md:px-6"
                 >
-                  <div className="min-w-0">
-                    <h3 className="font-semibold wrap-anywhere">{category.name}</h3>
-                    <p className="mt-1 text-sm leading-6 wrap-anywhere text-muted-foreground">
-                      {category.description || "Belum ada deskripsi."}
-                    </p>
-                    <p className="mt-2 text-xs wrap-anywhere text-muted-foreground">
-                      Slug: {category.slug}
-                    </p>
+                  <div className="flex min-w-0 gap-3">
+                    {category.image_path && (
+                      <div className="relative size-16 shrink-0 overflow-hidden border border-border bg-white">
+                        <ProductImage
+                          src={category.image_path}
+                          name={category.name}
+                          imageClassName="object-contain p-2"
+                          sizes="64px"
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <h3 className="font-semibold wrap-anywhere">{category.name}</h3>
+                      <p className="mt-1 text-sm leading-6 wrap-anywhere text-muted-foreground">
+                        {category.description || "Belum ada deskripsi."}
+                      </p>
+                      <p className="mt-2 text-xs wrap-anywhere text-muted-foreground">
+                        Slug: {category.slug}
+                      </p>
+                    </div>
                   </div>
                   <div>
                     <span
@@ -210,7 +223,7 @@ export function CategoryManager({
         />
       )}
       {editing && (
-        <div ref={editor} className="mx-auto max-w-2xl">
+        <div ref={editor} className="mx-auto max-w-4xl">
           <button
             type="button"
             disabled={pending}

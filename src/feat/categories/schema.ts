@@ -16,6 +16,19 @@ export const categorySchema = z.object({
       "Gunakan huruf kecil, angka, dan tanda hubung, misalnya laptop-komputer.",
     ),
   description: z.string().trim().max(2000, "Deskripsi maksimal 2.000 karakter."),
+  image_path: z
+    .string()
+    .trim()
+    .max(2000, "Alamat gambar maksimal 2.000 karakter.")
+    .refine((value) => {
+      if (!value) return true;
+      if (value.startsWith("/") && !value.startsWith("//") && !value.includes("\\")) return true;
+      try {
+        return new URL(value).protocol === "https:";
+      } catch {
+        return false;
+      }
+    }, "Gunakan URL HTTPS atau path gambar lokal."),
   is_active: z.boolean(),
 });
 
@@ -25,8 +38,11 @@ export type Category = {
   name: string;
   slug: string;
   description: string | null;
+  image_path: string | null;
   is_active: boolean;
 };
+
+export const CATEGORY_COLUMNS = "id, name, slug, description, image_path, is_active";
 
 export function categorySlug(name: string) {
   return name

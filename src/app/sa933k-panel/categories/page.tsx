@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { ROUTES } from "@/lib/config";
 import { getPrivateMetadata } from "@/lib/seo";
 import { getAdminContext } from "@/feat/sa933k-panel/admin-context";
-import type { Category } from "@/feat/categories/schema";
+import { CATEGORY_COLUMNS, type Category } from "@/feat/categories/schema";
 import { CategoryManager } from "./_partials/category-manager";
 
 export const metadata = getPrivateMetadata("Kelola Kategori");
@@ -12,10 +12,7 @@ export default async function CategoriesPage() {
   const { supabase, profile } = await getAdminContext();
   if (!profile) redirect(ROUTES.panel.dashboard);
 
-  const { data, error } = await supabase
-    .from("categories")
-    .select("id, name, slug, description, is_active")
-    .order("name");
+  const { data, error } = await supabase.from("categories").select(CATEGORY_COLUMNS).order("name");
   if (error) throw new Error("Daftar kategori gagal dimuat.");
 
   return (

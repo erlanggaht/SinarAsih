@@ -8,6 +8,7 @@ import type { Product } from "@/feat/products/schema";
 import { ProductCard } from "@/components/ProductSection";
 import { BRAND_NAME, ROUTES } from "@/lib/config";
 import { useTransition } from "react";
+import { formatRupiahInput, formatRupiahValue } from "@/lib/rupiah";
 import { ProductCardSkeleton } from "@/components/LoadingSkeletons";
 
 const fieldClass =
@@ -89,7 +90,7 @@ export function Catalog({ products, categories }: { products: Product[]; categor
         </p>
       </header>
       <div className="grid gap-8 lg:grid-cols-[260px_1fr]">
-        <aside>
+        <aside className="order-2 min-w-0 lg:order-1">
           <form
             key={params.toString()}
             action={ROUTES.catalog}
@@ -97,10 +98,16 @@ export function Catalog({ products, categories }: { products: Product[]; categor
               event.preventDefault();
               const next = new URLSearchParams();
               for (const [key, value] of new FormData(event.currentTarget))
-                if (typeof value === "string" && value.trim()) next.set(key, value.trim());
+                if (typeof value === "string" && value.trim())
+                  next.set(
+                    key,
+                    key === "min" || key === "max"
+                      ? value.replace(/\./g, "").replace(",", ".")
+                      : value.trim(),
+                  );
               startTransition(() => router.push(`${ROUTES.catalog}?${next}`));
             }}
-            className="grid gap-4 border border-border bg-card p-5"
+            className="grid grid-cols-1 gap-4 border border-border bg-card p-5"
           >
             <h2 className="flex items-center gap-2 font-semibold">
               <SlidersHorizontal className="size-4" aria-hidden="true" /> Cari & filter
@@ -147,11 +154,14 @@ export function Catalog({ products, categories }: { products: Product[]; categor
             <label className="text-sm">
               Harga minimum (Rp)
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
+                maxLength={20}
                 name="min"
-                min="0"
-                step="0.01"
-                defaultValue={min ?? ""}
+                defaultValue={formatRupiahValue(min)}
+                onChange={(event) => {
+                  event.currentTarget.value = formatRupiahInput(event.currentTarget.value);
+                }}
                 placeholder="0"
                 className={fieldClass}
               />
@@ -159,11 +169,14 @@ export function Catalog({ products, categories }: { products: Product[]; categor
             <label className="text-sm">
               Harga maksimum (Rp)
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
+                maxLength={20}
                 name="max"
-                min="0"
-                step="0.01"
-                defaultValue={max ?? ""}
+                defaultValue={formatRupiahValue(max)}
+                onChange={(event) => {
+                  event.currentTarget.value = formatRupiahInput(event.currentTarget.value);
+                }}
                 placeholder="Tanpa batas"
                 className={fieldClass}
               />
@@ -190,7 +203,7 @@ export function Catalog({ products, categories }: { products: Product[]; categor
             </Link>
           </form>
         </aside>
-        <div aria-busy={isPending}>
+        <div className="order-1 min-w-0 lg:order-2" aria-busy={isPending}>
           <p role="status" className="mb-5 text-sm text-muted-foreground">
             {isPending ? (
               "Memuat produk…"

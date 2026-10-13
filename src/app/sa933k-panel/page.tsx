@@ -62,7 +62,7 @@ export default async function AdminPage() {
         </div>
       </dl>
 
-      <PanelMenu />
+      <PanelMenu canManageAccounts={profile.role === "owner"} />
 
       <LogoutForm
         className="mt-8"

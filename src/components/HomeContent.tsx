@@ -3,13 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LayoutGrid, MessageCircle, Truck } from "lucide-react";
-import { useState } from "react";
+
 import { CategorySection } from "@/components/CategorySection";
 import { ServiceSection } from "@/components/ServiceSection";
 import { LocationSection } from "@/components/LocationSection";
 import { RepairSection } from "@/components/RepairSection";
 import { BrandPartnersSection } from "@/components/BrandPartnersSection";
-import { CategorySearchForm } from "@/components/forms/category-search-form";
+import { HomeCategorySearch } from "@/components/forms/home-category-search";
 import { BRAND_NAME, ANCHORS, getWhatsAppUrl } from "@/lib/config";
 import type { Category } from "@/feat/categories/schema";
 import type { Product } from "@/feat/products/schema";
@@ -23,8 +23,6 @@ export default function HomeContent({
   products: Product[];
   categoryError?: boolean;
 }) {
-  const [query, setQuery] = useState("");
-
   return (
     <section aria-label={BRAND_NAME} className="bg-card text-card-foreground">
       <div className="px-6 pt-6 pb-12 sm:px-12 lg:px-24 lg:pb-20">
@@ -36,7 +34,7 @@ export default function HomeContent({
             <LayoutGrid className="size-6 text-primary" aria-hidden="true" />
             Kategori
           </Link>
-          <CategorySearchForm onQueryChange={setQuery} />
+          <HomeCategorySearch categories={categories} error={categoryError} />
         </div>
 
         <section className="@container relative isolate bg-linear-to-br from-navigation-action to-brand-accent text-navigation-action-foreground">
@@ -83,12 +81,7 @@ export default function HomeContent({
 
         <ServiceSection />
       </div>
-      <CategorySection
-        query={query}
-        categories={categories}
-        products={products}
-        error={categoryError}
-      />
+      <CategorySection categories={categories} products={products} error={categoryError} />
       <RepairSection />
       <LocationSection />
       <BrandPartnersSection />

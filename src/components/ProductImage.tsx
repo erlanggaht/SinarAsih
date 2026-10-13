@@ -5,7 +5,17 @@ import { ImageOff } from "lucide-react";
 import { useState } from "react";
 import { Skeleton } from "@/components/LoadingSkeletons";
 
-export function ProductImage({ src, name }: { src: string | null; name: string }) {
+export function ProductImage({
+  src,
+  name,
+  imageClassName = "object-contain p-5",
+  sizes = "(min-width: 1280px) 25vw, (min-width: 640px) 42vw, 90vw",
+}: {
+  src: string | null;
+  name: string;
+  imageClassName?: string;
+  sizes?: string;
+}) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
   const imageSrc = src?.trim();
@@ -36,8 +46,8 @@ export function ProductImage({ src, name }: { src: string | null; name: string }
         unoptimized
         alt={name}
         fill
-        sizes="(min-width: 1280px) 25vw, (min-width: 640px) 42vw, 90vw"
-        className={`object-contain p-5 ${loadedSrc === imageSrc ? "opacity-100" : "opacity-0"}`}
+        sizes={sizes}
+        className={`${imageClassName} ${loadedSrc === imageSrc ? "opacity-100" : "opacity-0"}`}
         onLoad={() => setLoadedSrc(imageSrc)}
         onError={() => setFailedSrc(imageSrc)}
       />
