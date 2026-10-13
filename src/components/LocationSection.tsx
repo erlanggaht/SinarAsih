@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Navigation } from "lucide-react";
-import { EXTERNAL_LINKS } from "@/lib/config";
+import { BRAND_NAME, EXTERNAL_LINKS } from "@/lib/config";
 
 export function LocationSection() {
   return (
@@ -14,7 +14,7 @@ export function LocationSection() {
           <h2 id="location-title" className="text-2xl font-bold tracking-tight sm:text-3xl">
             Alamat
           </h2>
-          <h3 className="mt-7 font-semibold">Sinar Asih Makmur Sumedang</h3>
+          <h3 className="mt-7 font-semibold">{BRAND_NAME}</h3>
           <address className="mt-3 text-sm leading-relaxed text-muted-foreground not-italic">
             Jl. Prabu Geusan Ulun, Regol Wetan, Kec. Sumedang Selatan, Kabupaten Sumedang, Jawa
             Barat 45311.
@@ -46,7 +46,7 @@ export function LocationSection() {
         </div>
         <div className="min-h-80 border-t border-border bg-muted lg:min-h-110 lg:border-t-0 lg:border-l">
           <iframe
-            title="Lokasi Sinar Asih Makmur Sumedang di Google Maps"
+            title={`Lokasi ${BRAND_NAME} di Google Maps`}
             src={EXTERNAL_LINKS.maps.embed}
             allowFullScreen
             loading="lazy"

@@ -5,7 +5,7 @@ import { useEffect, useId, useRef } from "react";
 import { X } from "lucide-react";
 import { ProductImage } from "@/components/ProductImage";
 import { formatProductPrice, type Product } from "@/feat/products/schema";
-import { getWhatsAppUrl } from "@/lib/config";
+import { BRAND_NAME, getWhatsAppUrl } from "@/lib/config";
 
 export function ProductDetailDialog({
   product,
@@ -77,7 +77,7 @@ export function ProductDetailDialog({
         </p>
         <Link
           href={getWhatsAppUrl(
-            `Halo Sinar Asih, saya ingin bertanya tentang ${product.name} (SKU: ${product.sku}).`,
+            `Halo ${BRAND_NAME}, saya ingin bertanya tentang ${product.name} (SKU: ${product.sku}).`,
           )}
           target="_blank"
           rel="noopener noreferrer"

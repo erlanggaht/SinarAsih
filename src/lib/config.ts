@@ -1,3 +1,5 @@
+export const BRAND_NAME = "Sinar Asih Gadget Centre";
+
 const PANEL_BASE = "/sa933k-panel";
 const API_BASE = `/api${PANEL_BASE}`;
 
@@ -33,6 +35,7 @@ export const ANCHORS = {
 } as const;
 
 export const EXTERNAL_LINKS = {
+  email: "admin@sinarasihgadgetcentre.com",
   whatsappBase: "https://wa.me",
   whatsappNumber: "6281313555545",
   maps: {

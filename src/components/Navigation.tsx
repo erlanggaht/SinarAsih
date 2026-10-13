@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { ROUTES } from "@/lib/config";
+import { BRAND_NAME, ROUTES } from "@/lib/config";
 import { useSession } from "@/hooks/use-session";
 
 const links = [
@@ -33,7 +33,7 @@ export function Navigation() {
         <div className="flex h-20 items-center justify-between gap-6">
           <Link
             href={ROUTES.home}
-            aria-label="Sinar Asih Sumedang — beranda"
+            aria-label={`${BRAND_NAME}, beranda`}
             onClick={() => setOpen(false)}
             className="group shrink-0 text-5xl font-bold tracking-tight text-navigation-muted transition-colors hover:text-navigation-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navigation-foreground"
           >

@@ -4,11 +4,11 @@ import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { InstagramIcon, WhatsAppIcon } from "@/components/icons/SocialIcons";
 import { teamMembers } from "@/data/team";
-import { getWhatsAppUrl, ROUTES } from "@/lib/config";
+import { BRAND_NAME, getWhatsAppUrl, ROUTES } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Tim Kami | Sinar Asih",
-  description: "Kenali Yusuf Saeful Rizkie dan Dede Kusnandar, tim Sinar Asih Sumedang.",
+  title: `Tim Kami | ${BRAND_NAME}`,
+  description: `Kenali Yusuf Saeful Rizkie dan Dede Kusnandar, tim ${BRAND_NAME}.`,
 };
 
 export default function TeamPage() {
@@ -24,8 +24,8 @@ export default function TeamPage() {
       <header className="mb-10 border-b border-border pb-8">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Tim Kami</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Bertemu dengan tim Sinar Asih Sumedang yang siap menyambut Anda di toko dan membantu
-          kebutuhan perangkat Anda.
+          Bertemu dengan tim {BRAND_NAME} yang siap menyambut Anda di toko dan membantu kebutuhan
+          perangkat Anda.
         </p>
       </header>
 

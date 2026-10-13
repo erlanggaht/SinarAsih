@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Laptop, Printer, Smartphone } from "lucide-react";
-import { getWhatsAppUrl } from "@/lib/config";
+import { BRAND_NAME, getWhatsAppUrl } from "@/lib/config";
 
 const repairs = [
   {
@@ -8,21 +8,21 @@ const repairs = [
     description:
       "Komputer atau laptop bermasalah? Ceritakan kendalanya untuk konsultasi penanganan.",
     icon: Laptop,
-    message: "Halo Sinar Asih, saya ingin konsultasi servis komputer/laptop. Kendalanya: ",
+    message: `Halo ${BRAND_NAME}, saya ingin konsultasi servis komputer/laptop. Kendalanya: `,
   },
   {
     title: "HP & Smartphone",
     description:
       "Konsultasikan kendala pada HP Anda dan tanyakan pilihan penanganan yang tersedia.",
     icon: Smartphone,
-    message: "Halo Sinar Asih, saya ingin konsultasi servis HP. Model dan kendalanya: ",
+    message: `Halo ${BRAND_NAME}, saya ingin konsultasi servis HP. Model dan kendalanya: `,
   },
   {
     title: "Printer",
     description:
       "Printer tidak bekerja seperti biasanya? Sampaikan model dan kendala yang Anda alami.",
     icon: Printer,
-    message: "Halo Sinar Asih, saya ingin konsultasi servis printer. Model dan kendalanya: ",
+    message: `Halo ${BRAND_NAME}, saya ingin konsultasi servis printer. Model dan kendalanya: `,
   },
 ];
 
@@ -39,11 +39,11 @@ export function RepairSection() {
             Servis Perangkat
           </h2>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-navigation-foreground/70">
-            Selain menyediakan gadget, Sinar Asih melayani servis komputer, HP, dan printer.
+            Selain menyediakan gadget, {BRAND_NAME} melayani servis komputer, HP, dan printer.
             Konsultasikan kendala perangkat Anda atau kunjungi toko untuk berkonsultasi.
           </p>
           <Link
-            href={getWhatsAppUrl("Halo Sinar Asih, saya ingin bertanya tentang layanan servis.")}
+            href={getWhatsAppUrl(`Halo ${BRAND_NAME}, saya ingin bertanya tentang layanan servis.`)}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-7 inline-flex items-center gap-3 bg-navigation-action px-5 py-3 text-sm font-medium text-navigation-action-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navigation-foreground"

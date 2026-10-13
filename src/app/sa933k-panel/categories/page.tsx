@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ROUTES } from "@/lib/config";
+import { BRAND_NAME, ROUTES } from "@/lib/config";
 import { getAdminContext } from "@/feat/sa933k-panel/admin-context";
 import type { Category } from "@/feat/categories/schema";
 import { CategoryManager } from "./_partials/category-manager";
 
-export const metadata: Metadata = { title: "Kelola Kategori | Sinar Asih" };
+export const metadata: Metadata = { title: `Kelola Kategori | ${BRAND_NAME}` };
 
 export default async function CategoriesPage() {
   const { supabase, profile } = await getAdminContext();

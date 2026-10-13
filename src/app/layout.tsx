@@ -6,6 +6,7 @@ import AppContainer from "@/components/AppContainer";
 import { SessionProvider } from "@/components/session-provider";
 import { getServerSession } from "@/lib/auth/get-server-session";
 import "./globals.css";
+import { BRAND_NAME } from "@/lib/config";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -15,9 +16,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Sinar Asih Sumedang",
-  description:
-    "Sinar Asih adalah perusahaan yang bergerak di bidang distribusi dan penjualan produk-produk berkualitas tinggi yang berlokasi di Sumedang, Jawa Barat. ",
+  title: BRAND_NAME,
+  description: `${BRAND_NAME} adalah perusahaan yang bergerak di bidang distribusi dan penjualan produk-produk berkualitas tinggi yang berlokasi di Sumedang, Jawa Barat. `,
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {

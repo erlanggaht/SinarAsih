@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getCatalogData } from "@/feat/products/catalog";
 import { Catalog } from "@/components/Catalog";
+import { BRAND_NAME } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Katalog Produk | Sinar Asih",
-  description:
-    "Temukan produk Sinar Asih berdasarkan kategori, merek, harga, dan ketersediaan stok.",
+  title: `Katalog Produk | ${BRAND_NAME}`,
+  description: `Temukan produk ${BRAND_NAME} berdasarkan kategori, merek, harga, dan ketersediaan stok.`,
 };
 export const dynamic = "force-dynamic";
 

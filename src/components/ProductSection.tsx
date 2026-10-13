@@ -8,7 +8,7 @@ import { useSession } from "@/hooks/use-session";
 import Link from "next/link";
 import { demoProductCategories, demoProducts } from "@/data/products";
 import { formatProductPrice, type Product } from "@/feat/products/schema";
-import { getWhatsAppUrl, ROUTES } from "@/lib/config";
+import { BRAND_NAME, getWhatsAppUrl, ROUTES } from "@/lib/config";
 
 export function ProductCard({ product, categoryName }: { product: Product; categoryName: string }) {
   const { isAuthenticated } = useSession();
@@ -46,7 +46,9 @@ export function ProductCard({ product, categoryName }: { product: Product; categ
               : "Stok habis: 0 unit"}
           </p>
           <Link
-            href={getWhatsAppUrl(`Halo Sinar Asih, saya ingin bertanya tentang ${product.name}.`)}
+            href={getWhatsAppUrl(
+              `Halo ${BRAND_NAME}, saya ingin bertanya tentang ${product.name}.`,
+            )}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-primary px-3 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"

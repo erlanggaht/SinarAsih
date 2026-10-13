@@ -6,7 +6,7 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import type { Category } from "@/feat/categories/schema";
 import type { Product } from "@/feat/products/schema";
 import { ProductCard } from "@/components/ProductSection";
-import { ROUTES } from "@/lib/config";
+import { BRAND_NAME, ROUTES } from "@/lib/config";
 import { useTransition } from "react";
 import { ProductCardSkeleton } from "@/components/LoadingSkeletons";
 
@@ -85,7 +85,7 @@ export function Catalog({ products, categories }: { products: Product[]; categor
         </h1>
         <p className="mt-4 max-w-2xl text-muted-foreground">
           Jelajahi perangkat dan aksesori kami. Temukan produk yang tepat, lalu tanyakan langsung
-          kepada tim Sinar Asih.
+          kepada tim {BRAND_NAME}.
         </p>
       </header>
       <div className="grid gap-8 lg:grid-cols-[260px_1fr]">

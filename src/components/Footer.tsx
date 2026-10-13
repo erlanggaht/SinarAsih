@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
-import { EXTERNAL_LINKS, ROUTES, getWhatsAppUrl } from "@/lib/config";
+import { BRAND_NAME, EXTERNAL_LINKS, ROUTES, getWhatsAppUrl } from "@/lib/config";
 
 const groups = [
   {
@@ -19,16 +19,16 @@ const groups = [
     links: [
       {
         label: "Konsultasi Perangkat",
-        href: getWhatsAppUrl("Halo Sinar Asih, saya ingin konsultasi memilih perangkat."),
+        href: getWhatsAppUrl(`Halo ${BRAND_NAME}, saya ingin konsultasi memilih perangkat.`),
       },
       {
         label: "Konsultasi Servis",
-        href: getWhatsAppUrl("Halo Sinar Asih, saya ingin bertanya tentang layanan servis."),
+        href: getWhatsAppUrl(`Halo ${BRAND_NAME}, saya ingin bertanya tentang layanan servis.`),
       },
       {
         label: "Cash On Delivery",
         href: getWhatsAppUrl(
-          "Halo Sinar Asih, saya ingin bertanya tentang area dan ketentuan COD.",
+          `Halo ${BRAND_NAME}, saya ingin bertanya tentang area dan ketentuan COD.`,
         ),
       },
     ],
@@ -47,18 +47,18 @@ const focus =
 
 export function Footer() {
   return (
-    <footer className="bg-navigation px-6 pt-10 pb-8 text-navigation-foreground sm:px-12 lg:px-24 lg:pt-14">
+    <footer className="bg-navigation px-6 pt-10 pb-24 text-navigation-foreground sm:px-12 lg:px-24 lg:pt-14">
       <div className="mx-auto max-w-7xl">
         <div className="border border-navigation-foreground/10 bg-navigation-hover px-6 py-8 sm:px-10 lg:flex lg:items-center lg:justify-between lg:gap-8 lg:py-10">
           <div>
             <h2 className="text-2xl font-semibold sm:text-3xl">Butuh bantuan memilih produk?</h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-navigation-foreground/70">
-              Konsultasikan kebutuhan perangkat, harga, dan ketersediaan langsung dengan owner Sinar
-              Asih.
+              Konsultasikan kebutuhan perangkat, harga, dan ketersediaan langsung dengan owner{" "}
+              {BRAND_NAME}.
             </p>
           </div>
           <Link
-            href={getWhatsAppUrl("Halo Sinar Asih, saya ingin konsultasi memilih perangkat.")}
+            href={getWhatsAppUrl(`Halo ${BRAND_NAME}, saya ingin konsultasi memilih perangkat.`)}
             target="_blank"
             rel="noopener noreferrer"
             className={`mt-6 inline-flex shrink-0 items-center gap-3 border-b border-navigation-foreground/40 pb-2 font-medium lg:mt-0 ${focus}`}
@@ -92,16 +92,16 @@ export function Footer() {
               </ul>
             </nav>
           ))}
-          <div>
+          <div className="min-w-0">
             <Link
               href={ROUTES.home}
-              aria-label="Sinar Asih Sumedang — beranda"
+              aria-label={`${BRAND_NAME}, beranda`}
               className={`text-5xl font-bold tracking-tight ${focus}`}
             >
               <span className="text-navigation-muted">S</span>A
               <span className="text-navigation-muted">S</span>
             </Link>
-            <p className="mt-5 text-sm font-medium">Sinar Asih Sumedang</p>
+            <p className="mt-5 text-sm font-medium">{BRAND_NAME}</p>
             <p className="mt-3 text-sm leading-6 text-navigation-foreground/65">
               Perangkat, aksesori, dan konsultasi untuk kebutuhan Anda.
             </p>
@@ -114,11 +114,19 @@ export function Footer() {
               <WhatsAppIcon className="size-5" />
               0813 1355 5545<span className="sr-only">WhatsApp owner (buka tab baru)</span>
             </Link>
+            <a
+              href={`mailto:${EXTERNAL_LINKS.email}`}
+              className={`mt-3 flex min-h-11 items-center gap-2 text-sm hover:underline ${focus}`}
+            >
+              <Mail className="size-5 shrink-0" aria-hidden="true" />
+              <span className="sr-only">Email layanan: </span>
+              <span className="break-all">{EXTERNAL_LINKS.email}</span>
+            </a>
           </div>
         </div>
         <div className="border-t border-navigation-foreground/15 pt-6">
           <p className="text-xs text-navigation-foreground/50">
-            © {new Date().getFullYear()} Sinar Asih Sumedang. Seluruh hak dilindungi.
+            © {new Date().getFullYear()} {BRAND_NAME}. Seluruh hak dilindungi.
           </p>
         </div>
       </div>

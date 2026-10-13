@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MessageCircle, PackageSearch, Truck } from "lucide-react";
-import { getWhatsAppUrl } from "@/lib/config";
+import { BRAND_NAME, getWhatsAppUrl } from "@/lib/config";
 
 const services = [
   {
@@ -8,7 +8,7 @@ const services = [
     description:
       "Ceritakan kebutuhan Anda. Kami bantu memilih perangkat untuk bekerja, belajar, atau hiburan.",
     icon: MessageCircle,
-    message: "Halo Sinar Asih, saya ingin konsultasi memilih perangkat.",
+    message: `Halo ${BRAND_NAME}, saya ingin konsultasi memilih perangkat.`,
     textlink: "Hubungi Kami",
   },
 
@@ -17,7 +17,7 @@ const services = [
     description:
       "Ingin menggunakan layanan COD? Hubungi kami untuk memastikan area dan ketentuan pengiriman.",
     icon: Truck,
-    message: "Halo Sinar Asih, saya ingin bertanya tentang area dan ketentuan COD.",
+    message: `Halo ${BRAND_NAME}, saya ingin bertanya tentang area dan ketentuan COD.`,
     textlink: "Hubungi Kami",
   },
   {
@@ -25,7 +25,7 @@ const services = [
     description:
       "Tanyakan pilihan model, harga, dan stok terbaru sebelum menentukan perangkat Anda.",
     icon: PackageSearch,
-    message: "Halo Sinar Asih, saya ingin mengecek harga dan ketersediaan perangkat.",
+    message: `Halo ${BRAND_NAME}, saya ingin mengecek harga dan ketersediaan perangkat.`,
     textlink: "Lihat Produk",
   },
 ];

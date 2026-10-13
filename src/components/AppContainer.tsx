@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { FloatingContact } from "@/components/FloatingContact";
 import { ANCHORS } from "@/lib/config";
 
 export default function AppContainer({ children }: { children: ReactNode }) {
@@ -18,6 +19,7 @@ export default function AppContainer({ children }: { children: ReactNode }) {
         {children}
       </main>
       <Footer />
+      <FloatingContact />
     </div>
   );
 }

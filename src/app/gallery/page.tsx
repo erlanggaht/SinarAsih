@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Gallery } from "@/components/Gallery";
-import { ROUTES } from "@/lib/config";
+import { BRAND_NAME, ROUTES } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Galeri Perusahaan | Sinar Asih",
-  description: "Dokumentasi kegiatan dan momen kebersamaan Sinar Asih Sumedang.",
+  title: `Galeri Perusahaan | ${BRAND_NAME}`,
+  description: `Dokumentasi kegiatan dan momen kebersamaan ${BRAND_NAME}.`,
 };
 
 export default function GalleryPage() {
@@ -22,7 +22,7 @@ export default function GalleryPage() {
       <header className="mb-10 border-b border-border pb-8">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Galeri Perusahaan</h1>
         <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-          Mengenal Sinar Asih lebih dekat melalui dokumentasi kegiatan, event, dan momen
+          Mengenal {BRAND_NAME} lebih dekat melalui dokumentasi kegiatan, event, dan momen
           kebersamaan.
         </p>
       </header>

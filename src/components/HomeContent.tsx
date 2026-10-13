@@ -10,7 +10,7 @@ import { LocationSection } from "@/components/LocationSection";
 import { RepairSection } from "@/components/RepairSection";
 import { BrandPartnersSection } from "@/components/BrandPartnersSection";
 import { CategorySearchForm } from "@/components/forms/category-search-form";
-import { ANCHORS, getWhatsAppUrl } from "@/lib/config";
+import { BRAND_NAME, ANCHORS, getWhatsAppUrl } from "@/lib/config";
 import type { Category } from "@/feat/categories/schema";
 import type { Product } from "@/feat/products/schema";
 
@@ -26,7 +26,7 @@ export default function HomeContent({
   const [query, setQuery] = useState("");
 
   return (
-    <section aria-label="Sinar Asih Sumedang" className="bg-card text-card-foreground">
+    <section aria-label={BRAND_NAME} className="bg-card text-card-foreground">
       <div className="px-6 pt-6 pb-12 sm:px-12 lg:px-24 lg:pb-20">
         <div className="mb-5 flex flex-col gap-3 bg-background p-3 sm:flex-row sm:items-center">
           <Link
@@ -45,8 +45,8 @@ export default function HomeContent({
           </div>
           <div className="px-6 pt-10 pb-64 sm:px-10 sm:pb-80 lg:min-h-115 lg:px-12 lg:py-16">
             <div className="relative z-10">
-              <h1 className="text-[clamp(0.875rem,5cqw,3.75rem)] leading-tight font-bold tracking-tight whitespace-nowrap">
-                Sinar Asih Sumedang
+              <h1 className="max-w-3xl text-[clamp(1.75rem,5cqw,3.75rem)] leading-tight font-bold tracking-tight text-balance">
+                {BRAND_NAME}
               </h1>
               <p className="mt-5 max-w-md text-base leading-relaxed text-white/90 lg:max-w-[45%]">
                 Selamat datang di mitra perangkat gadget terpercaya Anda. Jangan ragu untuk bertanya
@@ -70,7 +70,7 @@ export default function HomeContent({
             <div className="absolute right-4 -bottom-12 z-10 w-[calc(100%-2rem)] max-w-105 sm:right-8 lg:right-0 lg:-bottom-14 lg:w-[50%] lg:max-w-137.5">
               <Image
                 src="/gadgets.png"
-                alt="Pilihan perangkat gadget Sinar Asih"
+                alt={`Pilihan perangkat gadget ${BRAND_NAME}`}
                 width={1080}
                 height={567}
                 preload
