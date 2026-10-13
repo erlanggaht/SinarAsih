@@ -6,6 +6,7 @@ import { SessionProvider } from "@/components/session-provider";
 import { getServerSession } from "@/lib/auth/get-server-session";
 import "./globals.css";
 import { getPageMetadata } from "@/lib/seo";
+import { GoogleTracking } from "@/components/GoogleTracking";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -21,6 +22,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="id" suppressHydrationWarning>
       <body className={`${roboto.variable} bg-background font-sans text-foreground antialiased`}>
+        <GoogleTracking />
         <ThemeProvider>
           <SessionProvider initialSession={session}>
             <AppContainer>{children}</AppContainer>

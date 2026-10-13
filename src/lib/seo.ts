@@ -4,6 +4,7 @@ import { BRAND_NAME, EXTERNAL_LINKS, ROUTES } from "@/lib/config";
 export const SEO = {
   siteUrl: "https://sinarasihgadgetcentre.com",
   siteName: "Sinar Asih Sumedang",
+  googleSiteVerification: "N_wU8qA0Z68kWx4w7YlA_cGmm-KXGRvSd0lrP0R3pvE",
   alternateNames: [
     "Sinar Asih",
     "Sinar Asih Gadget Center Sumedang",
@@ -74,7 +75,7 @@ export function getPageMetadata(page: keyof typeof SEO.pages): Metadata {
       googleBot: { index, follow: index, "max-image-preview": "large" },
     },
     verification: {
-      google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+      google: process.env.GOOGLE_SITE_VERIFICATION || SEO.googleSiteVerification,
     },
     openGraph: {
       type: "website",
