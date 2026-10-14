@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Navigation } from "lucide-react";
-import { BRAND_NAME, EXTERNAL_LINKS } from "@/lib/config";
+import { BRAND_NAME, BUSINESS, EXTERNAL_LINKS } from "@/lib/config";
 import outletPhoto from "../../public/outlet-sinarasih.jpg";
 
 export function LocationSection() {
@@ -37,9 +37,11 @@ export function LocationSection() {
           </div>
           <h3 className="mt-5 text-xl font-semibold">{BRAND_NAME}</h3>
           <address className="mt-3 text-sm leading-relaxed text-muted-foreground not-italic">
-            Jl. Prabu Geusan Ulun, Regol Wetan, Kec. Sumedang Selatan, Kabupaten Sumedang, Jawa
-            Barat 45311.
+            {BUSINESS.addressDisplay}.
           </address>
+          <a href={`tel:${BUSINESS.telephone}`} className="mt-4 text-sm text-primary underline">
+            Telepon: {BUSINESS.telephoneDisplay}
+          </a>
           <p className="mt-5 w-full border-l-2 border-primary bg-muted px-4 py-3 text-sm font-medium">
             Depan Bank Mandiri
           </p>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/SocialIcons";
-import { BRAND_NAME, EXTERNAL_LINKS, ROUTES, getWhatsAppUrl } from "@/lib/config";
+import { BRAND_NAME, BUSINESS, EXTERNAL_LINKS, ROUTES, getWhatsAppUrl } from "@/lib/config";
 
 const groups = [
   {
@@ -102,9 +102,9 @@ export function Footer() {
               <span className="text-navigation-muted">S</span>
             </Link>
             <p className="mt-5 text-sm font-medium">{BRAND_NAME}</p>
-            <p className="mt-3 text-sm leading-6 text-navigation-foreground/65">
-              Perangkat, aksesori, dan konsultasi untuk kebutuhan Anda.
-            </p>
+            <address className="mt-3 text-sm leading-6 text-navigation-foreground/65 not-italic">
+              {BUSINESS.addressDisplay}.
+            </address>
             <Link
               href={getWhatsAppUrl()}
               target="_blank"
@@ -112,7 +112,8 @@ export function Footer() {
               className={`mt-5 inline-flex items-center gap-2 text-sm ${focus}`}
             >
               <WhatsAppIcon className="size-5" />
-              0813 1355 5545<span className="sr-only">WhatsApp owner (buka tab baru)</span>
+              {BUSINESS.telephoneDisplay}
+              <span className="sr-only">WhatsApp owner (buka tab baru)</span>
             </Link>
             <a
               href={`mailto:${EXTERNAL_LINKS.email}`}

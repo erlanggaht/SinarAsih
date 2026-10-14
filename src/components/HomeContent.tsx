@@ -47,8 +47,9 @@ export default function HomeContent({
                 {BRAND_NAME}
               </h1>
               <p className="mt-5 max-w-md text-base leading-relaxed text-white/90 lg:max-w-[45%]">
-                Sinar Asih Sumedang menyediakan HP, laptop, komputer, dan aksesori untuk kebutuhan
-                Anda. Konsultasikan pilihan perangkat atau kunjungi toko kami di Sumedang.
+                {BRAND_NAME} menyediakan HP, laptop, komputer, dan aksesori untuk kebutuhan Anda.
+                Kunjungi toko kami di Jl. Prabu Geusan Ulun, Regol Wetan, Sumedang Selatan, depan
+                Bank Mandiri, atau konsultasikan pilihan perangkat melalui WhatsApp.
               </p>
               <div className="mt-5 flex items-center gap-2 text-sm text-white/90">
                 <Truck className="size-5" aria-hidden="true" />

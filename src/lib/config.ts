@@ -1,4 +1,18 @@
-export const BRAND_NAME = "Sinar Asih Sumedang";
+export const BRAND_NAME = "Sinar Asih Gadget Center Sumedang";
+export const BUSINESS = {
+  name: BRAND_NAME,
+  telephone: "+6281313555545",
+  telephoneDisplay: "0813 1355 5545",
+  address: {
+    streetAddress: "Jl. Prabu Geusan Ulun, Regol Wetan, Kec. Sumedang Selatan",
+    addressLocality: "Kabupaten Sumedang",
+    addressRegion: "Jawa Barat",
+    postalCode: "45311",
+    addressCountry: "ID",
+  },
+  addressDisplay:
+    "Jl. Prabu Geusan Ulun, Regol Wetan, Kec. Sumedang Selatan, Kabupaten Sumedang, Jawa Barat 45311",
+} as const;
 
 const PANEL_BASE = "/sa933k-panel";
 const API_BASE = `/api${PANEL_BASE}`;
@@ -37,11 +51,11 @@ export const ANCHORS = {
 export const EXTERNAL_LINKS = {
   email: "admin@sinarasihgadgetcentre.com",
   whatsappBase: "https://wa.me",
-  whatsappNumber: "6281313555545",
+  whatsappNumber: BUSINESS.telephone.slice(1),
   maps: {
     search: "https://maps.app.goo.gl/fks4FPQcnmvZKj2G9",
     directions:
-      "https://www.google.com/maps/dir/?api=1&destination=Sinar%20Asih%20Gadget%Center%20Sumedang",
+      "https://www.google.com/maps/dir/?api=1&destination=Sinar%20Asih%20Gadget%20Center%20Sumedang%2C%20Jl.%20Prabu%20Geusan%20Ulun%2C%20Regol%20Wetan%2C%20Sumedang",
     embed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.6521609711647!2d107.9213973388073!3d-6.854079185244184!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68d186c37e5c53%3A0xd86d1db22e04b6fa!2sSinar%20Asih%20Gadget%20Center%20Sumedang!5e0!3m2!1sid!2sid!4v1791881599402!5m2!1sid!2sid",
   },
