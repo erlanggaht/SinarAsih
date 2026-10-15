@@ -36,7 +36,7 @@ export function ProductCard({ product, categoryName }: { product: Product; categ
         </p>
         <div className="mt-auto pt-5">
           <p className="text-xl font-semibold text-primary tabular-nums">
-            {product.price === null ? "Hubungi untuk harga" : formatProductPrice(product.price)}
+            {product.price === null ? "Info lengkap via WhatsApp" : formatProductPrice(product.price)}
           </p>
           <p
             className={`mt-2 text-sm ${product.current_stock > 0 ? "text-success" : "text-muted-foreground"}`}

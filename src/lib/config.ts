@@ -93,7 +93,7 @@ export const PANEL_MENU = [
   {
     id: "stock",
     label: "Stok",
-    description: "Catat barang masuk, barang keluar, dan riwayat stok.",
+    description: "Lihat dan ubah jumlah stok produk toko.",
     href: ROUTES.panel.stock,
   },
   {

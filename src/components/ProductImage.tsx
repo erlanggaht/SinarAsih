@@ -10,11 +10,13 @@ export function ProductImage({
   name,
   imageClassName = "object-contain p-5",
   sizes = "(min-width: 1280px) 25vw, (min-width: 640px) 42vw, 90vw",
+  compact = false,
 }: {
   src: string | null;
   name: string;
   imageClassName?: string;
   sizes?: string;
+  compact?: boolean;
 }) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
@@ -29,10 +31,10 @@ export function ProductImage({
       <div
         role="img"
         aria-label={`Gambar ${name} belum tersedia`}
-        className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-muted px-5 text-muted-foreground"
+        className={`absolute inset-0 flex flex-col items-center justify-center gap-3 bg-muted text-muted-foreground ${compact ? "p-2" : "px-5"}`}
       >
-        <ImageOff className="size-12" strokeWidth={1.5} aria-hidden="true" />
-        <span className="text-center text-sm">Gambar belum tersedia</span>
+        <ImageOff className={compact ? "size-6" : "size-12"} strokeWidth={1.5} aria-hidden="true" />
+        {!compact && <span className="text-center text-sm">Gambar belum tersedia</span>}
       </div>
     );
   }

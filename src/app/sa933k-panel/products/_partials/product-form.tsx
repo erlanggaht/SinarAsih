@@ -2,6 +2,8 @@
 
 import { useForm } from "@tanstack/react-form";
 import { useState } from "react";
+import Link from "next/link";
+import { ROUTES } from "@/lib/config";
 import type { FieldComponentProps } from "erlangform";
 import { ErlangForm } from "@/components/forms/schema-form";
 import { TextField } from "@/components/forms/custom-fields";
@@ -162,6 +164,15 @@ export function ProductForm({
         Isi informasi produk dan pilih kategori yang sesuai. Nama, SKU, slug, dan kategori wajib
         diisi.
       </p>
+      {product && (
+        <p className="mt-3 text-sm text-muted-foreground">
+          Stok saat ini hanya dibaca di form ini. Catat perubahan melalui{" "}
+          <Link href={ROUTES.panel.stock} className="text-primary underline underline-offset-4">
+            menu Stok
+          </Link>{" "}
+          untuk memperbarui jumlah barang yang tersedia.
+        </p>
+      )}
       {product &&
         !categories.find((category) => category.id === product.category_id)?.is_active && (
           <p className="mt-4 border border-warning bg-warning/10 p-3 text-sm text-warning">
@@ -236,14 +247,18 @@ export function ProductForm({
             },
             current_stock: {
               label: product ? "Stok saat ini" : "Stok awal",
-              description: "Jumlah unit yang tersedia.",
+              description: product
+                ? "Ubah stok melalui menu Stok, bukan form produk."
+                : "Jumlah barang yang tersedia sekarang. Isi 0 jika habis.",
+              readOnlyIf: () => product !== null,
               component: StockField,
               requiredIf: () => true,
               section: "inventory",
-              layout: { sm: 6 },
+              layout: { sm: 12 },
             },
             minimum_stock: {
               label: "Batas stok minimum",
+              showIf: () => false,
               description: "Stok pada batas ini atau di bawahnya ditandai perlu ditambah.",
               component: StockField,
               requiredIf: () => true,

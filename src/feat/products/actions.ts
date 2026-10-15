@@ -59,7 +59,9 @@ export async function saveProductAction(input: unknown, identity?: unknown): Pro
     const query = original?.success
       ? supabase
           .from("products")
-          .update(values)
+          .update(
+            Object.fromEntries(Object.entries(values).filter(([key]) => key !== "current_stock")),
+          )
           .eq("id", original.data.id)
           .eq("updated_at", original.data.updated_at)
       : supabase.from("products").insert(values);
@@ -106,7 +108,7 @@ export async function deleteProductAction(
         success: false,
         error:
           error?.code === "23503"
-            ? "Produk masih digunakan data lain. Nonaktifkan produk jika belum dapat dihapus."
+            ? "Produk memiliki riwayat stok atau data terkait dan tidak dapat dihapus. Gunakan Edit produk lalu nonaktifkan agar riwayat tetap tersimpan."
             : "Produk telah berubah atau gagal dihapus. Muat ulang halaman dan coba lagi.",
       };
     revalidatePath(ROUTES.panel.products);

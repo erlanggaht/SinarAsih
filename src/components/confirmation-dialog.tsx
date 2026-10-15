@@ -8,11 +8,13 @@ export function ConfirmationDialog({
   children,
   busy,
   onClose,
+  closeLabel = "Batalkan penghapusan",
 }: {
   title: string;
   children: ReactNode;
   busy: boolean;
   onClose: () => void;
+  closeLabel?: string;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -40,7 +42,7 @@ export function ConfirmationDialog({
         <button
           type="button"
           disabled={busy}
-          aria-label="Batalkan penghapusan"
+          aria-label={closeLabel}
           onClick={onClose}
           className="flex size-11 shrink-0 items-center justify-center hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50"
         >

@@ -24,9 +24,14 @@ if (result->>'moved_count')::integer<>1 or exists(select 1 from public.categorie
 if not exists(select 1 from public.products where id=prod and category_id=dst and current_stock=7 and price=12500) then raise exception 'product data lost'; end if;
 result:=public.delete_category_and_move_products(empty_cat,null,empty_stamp);
 if exists(select 1 from public.categories where id=empty_cat) then raise exception 'empty category delete failed'; end if;
+begin
 delete from public.products where id=prod;
-get diagnostics deleted=row_count;
-if deleted<>1 then raise exception 'owner product delete failed'; end if;
+raise exception 'product with stock history was deleted';
+exception when foreign_key_violation then null; end;
+update public.products set is_active=false where id=prod;
+if not exists(select 1 from public.products where id=prod and not is_active)
+  or not exists(select 1 from public.stock_movements where product_id=prod and kind='opening')
+then raise exception 'product deactivation lost stock history'; end if;
 insert into public.products(category_id,name,sku,slug) values(dst,'Permission test','PERM-'||upper(token),'perm-'||token) returning id into prod;
 perform set_config('test.product_id',prod::text,true);
 perform set_config('test.category_id',dst::text,true);

@@ -7,6 +7,7 @@ import { getServerSession } from "@/lib/auth/get-server-session";
 import "./globals.css";
 import { getPageMetadata } from "@/lib/seo";
 import { GoogleTracking } from "@/components/GoogleTracking";
+import { getPublicCategories } from "@/feat/products/catalog";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -18,14 +19,22 @@ const roboto = Roboto({
 export const metadata = getPageMetadata("home");
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const session = await getServerSession();
+  const [session, navigation] = await Promise.all([
+    getServerSession(),
+    getPublicCategories().then(
+      (categories) => ({ categories, error: false }),
+      () => ({ categories: [], error: true }),
+    ),
+  ]);
   return (
     <html lang="id" suppressHydrationWarning>
       <body className={`${roboto.variable} bg-background font-sans text-foreground antialiased`}>
         <GoogleTracking />
         <ThemeProvider>
           <SessionProvider initialSession={session}>
-            <AppContainer>{children}</AppContainer>
+            <AppContainer categories={navigation.categories} categoryError={navigation.error}>
+              {children}
+            </AppContainer>
           </SessionProvider>
         </ThemeProvider>
       </body>

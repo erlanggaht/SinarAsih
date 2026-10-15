@@ -76,7 +76,7 @@ export function ProductDetailDialog({
           </div>
         )}
         <p className="mt-5 text-2xl font-semibold text-primary">
-          {product.price === null ? "Hubungi untuk harga" : formatProductPrice(product.price)}
+          {product.price === null ? "Info lengkap via WhatsApp" : formatProductPrice(product.price)}
         </p>
         <dl className="mt-5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-3 text-sm">
           <dt className="text-muted-foreground">Kategori</dt>

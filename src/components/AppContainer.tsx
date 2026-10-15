@@ -4,8 +4,17 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { FloatingContact } from "@/components/FloatingContact";
 import { ANCHORS } from "@/lib/config";
+import type { Category } from "@/feat/categories/schema";
 
-export default function AppContainer({ children }: { children: ReactNode }) {
+export default function AppContainer({
+  children,
+  categories,
+  categoryError,
+}: {
+  children: ReactNode;
+  categories: Category[];
+  categoryError: boolean;
+}) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Link
@@ -14,7 +23,7 @@ export default function AppContainer({ children }: { children: ReactNode }) {
       >
         Lewati navigasi
       </Link>
-      <Navigation />
+      <Navigation categories={categories} categoryError={categoryError} />
       <main id="main-content" tabIndex={-1} className="min-h-screen pt-21 outline-none">
         {children}
       </main>

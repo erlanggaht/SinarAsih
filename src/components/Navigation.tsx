@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import { BRAND_NAME, ROUTES } from "@/lib/config";
 import { useSession } from "@/hooks/use-session";
+import type { Category } from "@/feat/categories/schema";
+import { CatalogDropdown } from "@/components/CatalogDropdown";
 
 const links = [
   { label: "Beranda", href: ROUTES.home },
@@ -13,7 +15,13 @@ const links = [
   { label: "Tim Kami", href: ROUTES.team },
 ];
 
-export function Navigation() {
+export function Navigation({
+  categories,
+  categoryError,
+}: {
+  categories: Category[];
+  categoryError: boolean;
+}) {
   const { isAuthenticated } = useSession();
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -59,23 +67,33 @@ export function Navigation() {
             id="navigation-links"
             className={`${open ? "flex" : "hidden"} absolute inset-x-0 top-20 max-h-[calc(100dvh-5rem)] flex-col gap-1 overflow-y-auto bg-navigation p-4 shadow-lg lg:static lg:flex lg:max-h-none lg:flex-row lg:items-center lg:gap-1 lg:overflow-visible lg:p-0 lg:shadow-none`}
           >
-            {links.map(({ label, href }) => (
-              <Link
-                key={label}
-                href={href}
-                aria-current={pathname === href ? "page" : undefined}
-                onClick={() => setOpen(false)}
-                className="px-4 py-3 text-lg transition-colors hover:bg-navigation-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navigation-foreground aria-[current=page]:bg-navigation-hover"
-              >
-                {label}
-              </Link>
-            ))}
+            {links.map(({ label, href }) =>
+              href === ROUTES.catalog ? (
+                <CatalogDropdown
+                  key={href}
+                  categories={categories}
+                  error={categoryError}
+                  active={pathname === ROUTES.catalog}
+                  onNavigate={() => setOpen(false)}
+                />
+              ) : (
+                <Link
+                  key={label}
+                  href={href}
+                  aria-current={pathname === href ? "page" : undefined}
+                  onClick={() => setOpen(false)}
+                  className="px-4 py-3 text-lg transition-colors hover:bg-navigation-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navigation-foreground aria-[current=page]:bg-navigation-hover"
+                >
+                  {label}
+                </Link>
+              ),
+            )}
             {isAuthenticated && (
               <Link
                 href={ROUTES.panel.dashboard}
                 aria-current={
                   pathname === ROUTES.panel.dashboard ||
-                    pathname.startsWith(`${ROUTES.panel.dashboard}/`)
+                  pathname.startsWith(`${ROUTES.panel.dashboard}/`)
                     ? "page"
                     : undefined
                 }
