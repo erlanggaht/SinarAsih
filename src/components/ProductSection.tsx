@@ -7,8 +7,9 @@ import { useState } from "react";
 import { useSession } from "@/hooks/use-session";
 import Link from "next/link";
 import { demoProductCategories, demoProducts } from "@/data/products";
-import { formatProductPrice, type Product } from "@/feat/products/schema";
-import { BRAND_NAME, getWhatsAppUrl, ROUTES } from "@/lib/config";
+import { type Product } from "@/feat/products/schema";
+import { ROUTES } from "@/lib/config";
+import { ProductWhatsAppLink } from "@/components/ProductWhatsAppLink";
 
 export function ProductCard({ product, categoryName }: { product: Product; categoryName: string }) {
   const { isAuthenticated } = useSession();
@@ -35,9 +36,6 @@ export function ProductCard({ product, categoryName }: { product: Product; categ
           {product.description}
         </p>
         <div className="mt-auto pt-5">
-          <p className="text-xl font-semibold text-primary tabular-nums">
-            {product.price === null ? "Info lengkap via WhatsApp" : formatProductPrice(product.price)}
-          </p>
           <p
             className={`mt-2 text-sm ${product.current_stock > 0 ? "text-success" : "text-muted-foreground"}`}
           >
@@ -45,17 +43,7 @@ export function ProductCard({ product, categoryName }: { product: Product; categ
               ? `Stok tersedia: ${new Intl.NumberFormat("id-ID").format(product.current_stock)} unit`
               : "Stok habis: 0 unit"}
           </p>
-          <Link
-            href={getWhatsAppUrl(
-              `Halo ${BRAND_NAME}, saya ingin bertanya tentang ${product.name}.`,
-            )}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-flex w-full items-center justify-center gap-2 bg-primary px-3 py-3 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-          >
-            Tanya produk
-            <span className="sr-only">{product.name} melalui WhatsApp (buka tab baru)</span>
-          </Link>
+          <ProductWhatsAppLink product={product} className="mt-5" />
           <button
             type="button"
             onClick={() => setDetailsOpen(true)}

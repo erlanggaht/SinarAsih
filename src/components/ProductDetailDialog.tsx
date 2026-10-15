@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { ProductImage } from "@/components/ProductImage";
-import { formatProductPrice, type Product } from "@/feat/products/schema";
-import { BRAND_NAME, getWhatsAppUrl } from "@/lib/config";
+import { type Product } from "@/feat/products/schema";
+import { ProductWhatsAppLink } from "@/components/ProductWhatsAppLink";
 
 export function ProductDetailDialog({
   product,
@@ -75,9 +74,6 @@ export function ProductDetailDialog({
             ))}
           </div>
         )}
-        <p className="mt-5 text-2xl font-semibold text-primary">
-          {product.price === null ? "Info lengkap via WhatsApp" : formatProductPrice(product.price)}
-        </p>
         <dl className="mt-5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-5 gap-y-3 text-sm">
           <dt className="text-muted-foreground">Kategori</dt>
           <dd className="wrap-anywhere">{categoryName}</dd>
@@ -95,16 +91,7 @@ export function ProductDetailDialog({
         <p className="mt-3 text-sm leading-7 wrap-anywhere whitespace-pre-wrap text-muted-foreground">
           {product.description || "Belum ada deskripsi produk."}
         </p>
-        <Link
-          href={getWhatsAppUrl(
-            `Halo ${BRAND_NAME}, saya ingin bertanya tentang ${product.name} (SKU: ${product.sku}).`,
-          )}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 flex min-h-11 items-center justify-center bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 focus-visible:outline-2 focus-visible:outline-ring"
-        >
-          Tanya produk<span className="sr-only"> melalui WhatsApp (buka tab baru)</span>
-        </Link>
+        <ProductWhatsAppLink product={product} className="mt-6" />
       </div>
     </dialog>
   );
